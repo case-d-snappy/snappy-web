@@ -1,3 +1,5 @@
+import ChevronLeft from 'assets/svgs/chevron_left.svg';
+import ChevronRight from 'assets/svgs/chevron_right.svg';
 import { IMAGE_URL } from 'constants/comoon';
 import { useCallback, useState } from 'react';
 import TextAnimation from 'utils/scroll-text';
@@ -6,6 +8,19 @@ import { cn } from 'utils/styles';
 function Concept() {
   const [sliderPosition, setSliderPosition] = useState(43);
   const [isDragging, setIsDragging] = useState(false);
+
+  const calculateSliderPosition = (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    const sliderRect = event.currentTarget.getBoundingClientRect();
+    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+    return Math.min(Math.max(((clientX - sliderRect.left) / sliderRect.width) * 100, 0), 100);
+  };
+
+  const handleSliderClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+      setSliderPosition(calculateSliderPosition(event));
+    },
+    []
+  );
 
   const handleMouseDown = useCallback(() => {
     setIsDragging(true);
@@ -17,14 +32,9 @@ function Concept() {
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-      if (!isDragging) {
-        return;
+      if (isDragging) {
+        setSliderPosition(calculateSliderPosition(event));
       }
-
-      const sliderRect = event.currentTarget.getBoundingClientRect();
-      const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
-
-      setSliderPosition(Math.min(Math.max(((clientX - sliderRect.left) / sliderRect.width) * 100, 0), 100));
     },
     [isDragging]
   );
@@ -66,27 +76,26 @@ function Concept() {
           />
         </div>
 
-        <div
-          className={cn(
-            'will-change-transform transform-style-preserve-3d z-10 bg-transparent bg-center',
-            `bg-no-repeat bg-contain w-[398px] h-[768px] bg-[url(${IMAGE_URL}/iPhone_x_mockup.png)]`,
-            'flex flex-col justify-center items-center mx-auto'
-          )}
-          onMouseMove={handleMouseMove}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onTouchMove={handleMouseMove}
-          onTouchStart={handleMouseDown}
-          onTouchEnd={handleMouseUp}
-          role="slider"
-          aria-valuenow={sliderPosition}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label="Image comparison slider"
-        >
-          <div className="z-20 bg-transparent w-90 h-182.5 block relative overflow-clip rounded-[40px]">
-            <div className="will-change-opacity z-50 bg-transparent flex justify-center items-start px-2.5 absolute -top-[5px] left-0 right-0 overflow-hidden">
+        <div className="flex justify-center">
+          <div
+            className={cn(
+              'bg-transparent bg-center bg-no-repeat bg-contain',
+              'absolute will-change-transform transform-style-preserve-3d z-10 w-69 h-134.5',
+              'md:w-99.5 md:h-192',
+              'flex flex-col justify-center items-center mx-auto'
+            )}
+            style={{
+              backgroundImage: `url(${IMAGE_URL}/iPhone_x_mockup.png)`,
+            }}
+          />
+
+          <div
+            className={cn(
+              'z-20 bg-transparent w-63 h-128 block relative overflow-clip rounded-4xl top-3 md:top-4.5',
+              'md:w-90 md:h-182.5 md:rounded-[40px]'
+            )}
+          >
+            <div className="will-change-opacity z-50 bg-transparent flex justify-center items-start px-2.5 absolute top-0 md:-top-[5px] left-0 right-0 overflow-hidden">
               <img
                 className="will-change-transform transform-style-preserve-3d"
                 src={`${IMAGE_URL}/iPhone_ui_notch_time.png`}
@@ -101,30 +110,58 @@ function Concept() {
                 alt="Mock detail screen"
               />
 
-              <div className="absolute top-21.5 left-5 right-5 w-[100%-20px] h-106 rounded-4xl overflow-clip">
+              <div
+                role="slider"
+                aria-valuenow={sliderPosition}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label="Image comparison slider"
+                onClick={handleSliderClick}
+                onMouseMove={handleMouseMove}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onTouchMove={handleMouseMove}
+                onTouchStart={handleMouseDown}
+                onTouchEnd={handleMouseUp}
+                className={cn(
+                  'absolute top-15 left-3 right-3 w-[100%-20px] h-75 rounded-[29px] overflow-clip',
+                  'md:top-21.5 md:left-5 md:right-5 md:h-106.5 '
+                )}
+              >
                 <div
-                  className="h-full w-full absolute top-0 left-0 overflow-hidden"
+                  className="h-full w-full absolute top-0 left-0 overflow-hidden z-10"
                   style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                 >
                   <img
-                    className="w-full h-full block bg-white max-w-none object-cover"
+                    className="w-full h-full block bg-white max-w-none"
                     src={`${IMAGE_URL}/main_concept_picture.png`}
                     alt="Original picture"
                   />
-                </div>
-
-                <div className="absolute bottom-5 left-7 z-10 py-0.5 px-3 text-white text-xs font-medium bg-[#131E28] rounded-full opacity-40">
-                  Before
-                </div>
-                <div className="absolute bottom-5 right-7 z-10 py-0.5 px-3 text-white text-xs font-medium bg-[#131E28] rounded-full opacity-40">
-                  After
+                  <div
+                    className={cn(
+                      'absolute bottom-4 left-5 py-0.5 px-3 text-white text-xs font-medium bg-[#131E28] rounded-full opacity-40',
+                      'md:bottom-5 md:left-7'
+                    )}
+                  >
+                    Before
+                  </div>
                 </div>
 
                 <img
-                  className="w-full h-full block bg-white max-w-none object-cover"
+                  className="w-full h-full block bg-white max-w-none"
                   src={`${IMAGE_URL}/main_concept_picture_with_ai.png`}
                   alt="Picture with AI styling"
                 />
+                <div
+                  className={cn(
+                    'absolute bottom-4 right-5 py-0.5 px-3 text-white text-xs font-medium bg-[#131E28] rounded-full opacity-40',
+                    'md:bottom-5 md:right-7'
+                  )}
+                >
+                  After
+                </div>
+
                 <SliderOverlay sliderPosition={sliderPosition} />
               </div>
             </div>
@@ -135,40 +172,26 @@ function Concept() {
   );
 }
 
-const SliderOverlay = ({ sliderPosition }: { sliderPosition: number }) => {
+interface SliderOverlayProps {
+  sliderPosition: number;
+}
+
+const SliderOverlay = ({ sliderPosition }: SliderOverlayProps) => {
   return (
-    <div className="absolute w-full h-full top-0 z-10">
+    <div className="absolute w-full h-full top-0 z-10 cursor-pointer">
       <div
-        className="absolute touch-none z-10 top-0 bottom-0 w-0.5 h-full bg-white cursor-grab outline-none"
+        className="absolute touch-none z-10 top-0 bottom-0 w-0.5 h-full bg-white outline-none cursor-grab"
         style={{
           left: `${sliderPosition}%`,
         }}
         role="presentation"
       >
         <span className="sliderImageBar_dividing_line__circle" aria-hidden="true">
-          <div className="w-1.5 fill-none">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 20" aria-hidden="true">
-              <path
-                d="M9 2L2.4 8.6c-.8.8-.8 2 0 2.8L9 18"
-                fill="none"
-                stroke="#10A9FF"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
-            </svg>
+          <div className="w-1.5 fill-none text-[#10A9FF]">
+            <ChevronLeft />
           </div>
-          <div className="w-1.5 fill-none">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 20" aria-hidden="true">
-              <path
-                d="M2 2l6.6 6.6c.8.8.8 2 0 2.8L2 18"
-                fill="none"
-                stroke="#10A9FF"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
-            </svg>
+          <div className="w-1.5 fill-none text-[#10A9FF]">
+            <ChevronRight />
           </div>
         </span>
       </div>
