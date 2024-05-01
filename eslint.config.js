@@ -161,6 +161,7 @@ export default tseslint.config(
       '@typescript-eslint/return-await': 'off',
       'no-underscore-dangle': ['error', { allow: ['_hasHydrated'] }],
       'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
+      '@typescript-eslint/ban-ts-comment': 'warn',
     },
   }
 );

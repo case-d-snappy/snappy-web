@@ -1,10 +1,3 @@
-declare module '*.svg' {
-  import React from 'react';
-
-  const content: React.FC<React.SVGProps<SVGSVGElement>>;
-  export default content;
-}
-
 export declare global {
   interface Window {
     gtag: (type: 'set' | 'event', action: string, params?: Record<string, unknown>) => void;
@@ -32,11 +25,4 @@ export declare global {
       }
     ) => void;
   }
-}
-
-declare module '*.svg' {
-  import React from 'react';
-
-  const content: React.FC<React.SVGProps<SVGSVGElement>>;
-  export default content;
 }

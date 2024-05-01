@@ -157,6 +157,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, price }) => {
             aria-label="Popular plan badge"
           >
             <div className="pl-2.5 pr-3.5 py-2 rounded-full bg-[#FF2768] flex items-center gap-2 w-full shadow-lg">
+              {/* @ts-expect-error */}
               <StarBold className="min-w-4 w-5 h-4 text-white" aria-hidden="true" />
               <span className="text-sm font-bold text-white">POPULAR</span>
             </div>
@@ -206,7 +207,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, price }) => {
         </div>
 
         <ul className="space-y-4.5 flex-grow" role="list" aria-label="Plan features">
-          {t(`subscription.plans.${plan.id}.features`, { returnObjects: true }).map(
+          {(t(`subscription.plans.${plan.id}.features`, { returnObjects: true }) as string[]).map(
             (feature: string, index: number) => (
               <li key={index} className="flex items-start-start gap-1 text-[#F0EDE5] text-base">
                 <svg

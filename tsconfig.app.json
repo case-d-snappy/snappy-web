@@ -38,7 +38,8 @@
       "types/*": ["types/*"],
       "providers/*": ["providers/*"],
       "assets/*": ["assets/*"]
-    }
+    },
+    "types": ["vite-plugin-svgr/client"]
   },
   "include": ["src/**/*", "vite.config.ts", ".eslint.config.js", "__tests__/utils.ts"]
 }

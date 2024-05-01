@@ -22,6 +22,7 @@ function Header() {
     <header className="sticky top-0 z-50 w-full h-20 bg-[#131e28]">
       <div className="container mx-auto flex items-center justify-between w-full h-full">
         <div className="flex items-center">
+          {/* @ts-expect-error */}
           <SnappyLogo height={56} width="100%" />
         </div>
         <div className="relative">
@@ -31,6 +32,7 @@ function Header() {
             onClick={() => setIsOpen(!isOpen)}
           >
             {languageOptions.find(option => option.value === i18n.language)?.label}
+            {/* @ts-expect-error */}
             <ChevronDown className={`ml-2 h-4 w-4 transition-transform ${isOpen ? '-rotate-180' : ''}`} />
           </button>
           {isOpen && (

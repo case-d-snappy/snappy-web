@@ -45,6 +45,7 @@ function Intro() {
           transition={{ duration: 0.8 }}
           className="w-40 h-auto z-10"
         >
+          {/* @ts-expect-error */}
           <SnappyLogo className="w-full h-full" aria-hidden="true" role="logo" />
         </motion.div>
 

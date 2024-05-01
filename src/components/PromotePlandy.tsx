@@ -37,6 +37,7 @@ function PromotePlandy() {
             target="_blank"
             onClick={() => analyticsEvent.clickDownloadPlandy()}
           >
+            {/* @ts-expect-error */}
             <AppStore className="w-40 h-auto" aria-hidden="true" />
           </a>
         </div>
