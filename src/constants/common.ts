@@ -9,3 +9,8 @@ export const CountryCode = {
   KR: 'kr',
   US: 'us',
 } as const;
+
+export const CurrencyCode = {
+  KR: 'KRW',
+  US: 'USD',
+} as const;

@@ -75,4 +75,7 @@ export const analyticsEvent = {
   clickDownloadPlandy() {
     gTag.sendGaEvent(`click_download_plandy`);
   },
+  clickSubscribeButton(plan: string, price: string) {
+    gTag.sendGaEvent(`click_subscribe_button`, { plan, price, variation: getUserVariation() });
+  },
 };

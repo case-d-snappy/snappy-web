@@ -1,4 +1,4 @@
-import { CountryCode, LanguageCode } from 'constants/common';
+import { CountryCode, CurrencyCode, LanguageCode } from 'constants/common';
 
 export type PriceVariation = 'A' | 'B' | 'C';
 export type SubscriptionPeriod = 'proMonthly' | 'proYearly';
@@ -86,12 +86,12 @@ export const getUserVariation = (): PriceVariation => {
 export const getPriceForVariation = (
   variation: PriceVariation,
   period: SubscriptionPeriod
-): { price: number; currency: string } => {
+): { price: number; currency: (typeof CurrencyCode)[keyof typeof CurrencyCode] } => {
   const isKr = isKoreanUser();
   const price = PRICE_CONFIG[variation][period][isKr ? CountryCode.KR : CountryCode.US];
 
   return {
     price,
-    currency: isKr ? 'KRW' : 'USD',
+    currency: isKr ? CurrencyCode.KR : CurrencyCode.US,
   };
 };

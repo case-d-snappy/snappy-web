@@ -22,7 +22,7 @@ function Subscription() {
     once: true,
   });
 
-  const { monthlyPrice, yearlyPrice, isLoading, currency } = useABTesting();
+  const { formatedMonthlyPrice, formatedYearlyPrice, isLoading, currency } = useABTesting();
 
   useViewEvent(() => analyticsEvent.viewSection('subscription'), inView);
 
@@ -83,8 +83,8 @@ function Subscription() {
                     plan.id === 'free'
                       ? formatPrice(0, currency)
                       : plan.id === 'proMonthly'
-                        ? monthlyPrice.formatted
-                        : yearlyPrice.formatted
+                        ? formatedMonthlyPrice
+                        : formatedYearlyPrice
                   }
                 />
               </motion.div>
@@ -116,6 +116,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, price }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleSubscribeClick = () => {
+    analyticsEvent.clickSubscribeButton(plan.id, price);
     setShowTooltip(true);
     setTimeout(() => {
       setShowTooltip(false);
