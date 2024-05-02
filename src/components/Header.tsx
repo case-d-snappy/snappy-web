@@ -28,20 +28,20 @@ function Header() {
         <div className="relative">
           <button
             type="button"
-            className="flex items-center px-3 py-2 text-white bg-transparent rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+            className="flex items-center px-3 py-2 text-white bg-transparent rounded-lg hover:bg-white/10 transition-colors cursor-pointer whitespace-nowrap"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {languageOptions.find(option => option.value === i18n.language)?.label}
+            {languageOptions.find(option => i18n.language.includes(option.value))?.label}
             {/* @ts-expect-error */}
             <ChevronDown className={`ml-2 h-4 w-4 transition-transform ${isOpen ? '-rotate-180' : ''}`} />
           </button>
           {isOpen && (
-            <div className="absolute right-0 mt-2 w-full bg-gray-800 rounded-md shadow-lg py-1 z-10">
+            <div className="absolute right-0 mt-2 w-auto bg-gray-800 rounded-md shadow-lg py-1 z-10">
               {languageOptions.map(option => (
                 <button
                   key={option.value}
                   type="button"
-                  className="block w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 text-left "
+                  className="block w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 text-left"
                   onClick={() => handleLanguageChange(option.value)}
                 >
                   {option.label}
