@@ -15,7 +15,6 @@ test.describe('HomePage renders correctly', () => {
 
   test('1. Intro section', async ({ page }) => {
     // Check intro section elements visibility
-    const logo = page.getByRole('img', { name: 'Snappy Logo' });
     const title = page.getByRole('heading', { level: 1, name: 'Snappy' });
     const description = page.getByRole('heading', {
       level: 2,
@@ -23,12 +22,10 @@ test.describe('HomePage renders correctly', () => {
     });
 
     // Check elements are visible
-    await expect(logo).toBeVisible();
     await expect(title).toBeVisible();
     await expect(description).toBeVisible();
 
     // Check initial animation states
-    await expect(logo).toHaveCSS('opacity', '1');
     await expect(title).toHaveCSS('opacity', '1');
     await expect(description).toHaveCSS('opacity', '1');
 

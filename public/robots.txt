@@ -1,0 +1,6 @@
+# robots.txt for https://www.snappy.style/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.snappy.style/sitemap.xml

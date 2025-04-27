@@ -1,5 +1,6 @@
 import AppStore from 'assets/svgs/app_store.svg';
 import GooglePlay from 'assets/svgs/google_play.svg';
+import SnappyLogo from 'assets/svgs/snappy.svg';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import { Sparkles } from 'utils/Sparkles';
@@ -37,15 +38,14 @@ const Intro = () => {
   return (
     <section className="w-full h-screen relative" role="banner" aria-label="Introduction">
       <div className="relative w-full h-full max-w-screen-7xl flex flex-col items-center justify-center">
-        <motion.img
+        <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          src="/snappy.svg"
-          alt="Snappy Logo"
           className="w-40 h-auto z-10"
-          loading="eager"
-        />
+        >
+          <SnappyLogo className="w-full h-full" aria-hidden="true" role="logo" />
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 50 }}

@@ -2,10 +2,6 @@ import { motion } from 'framer-motion';
 import TextAnimation from 'utils/scroll-text';
 import { cn } from 'utils/styles';
 
-const mockDayCard = '/images/mock_day_card.png';
-const mockDetailCard = '/images/mock_detail_card.png';
-const mockCalender = '/images/mock_calender_screen.png';
-
 const Strengths = () => {
   return (
     <section className="bg-[#344859] ">
@@ -70,7 +66,7 @@ const Strengths = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full xs:w-auto xs:max-h-[858px]"
-            src={mockDayCard}
+            src="https://static.snappy.style/images/mock_day_card.png"
             alt="Day Card"
           />
         </div>
@@ -101,7 +97,7 @@ const Strengths = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full xs:w-auto xs:max-h-[858px]"
-            src={mockDetailCard}
+            src="https://static.snappy.style/images/mock_detail_card.png"
             alt="Detail Card"
           />
         </div>
@@ -130,7 +126,7 @@ const Strengths = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full xs:w-auto xs:max-h-[858px]"
-            src={mockCalender}
+            src="https://static.snappy.style/images/mock_calender_screen.png"
             alt="Calender Screen"
           />
         </div>
