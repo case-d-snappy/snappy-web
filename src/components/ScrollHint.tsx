@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 export function ScrollHint() {
@@ -36,23 +38,38 @@ export function ScrollHint() {
       }, 500);
     };
 
-    window.addEventListener('scroll', handleScroll);
-
     handleScroll();
+    window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div
-      ref={scrollHint}
-      id="scroll-hint"
-      className="fixed bottom-10 left-1/2 -translate-x-1/2 text-center cursor-pointer flex flex-col items-center z-10"
-    >
-      <div className="text-xs text-gray-400 mb-2.5">Scroll</div>
-      <div className="w-7.5 h-12.5 border-2 border-gray-300 rounded-3xl relative">
-        <div className="w-2 h-2 bg-gray-300 absolute rounded-full left-1/2 -translate-x-1/2 animate-scroll-ball"></div>
-      </div>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        ref={scrollHint}
+        id="scroll-hint"
+        className="fixed bottom-10 left-1/2 -translate-x-1/2 text-center cursor-pointer flex flex-col items-center z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="text-xs text-gray-400 mb-2.5">Scroll</div>
+        <div className="w-7.5 h-12.5 border-2 border-gray-300 rounded-3xl relative">
+          <motion.div
+            className="w-2 h-2 bg-gray-300 absolute rounded-full left-1/2 -translate-x-1/2"
+            animate={{
+              y: [0, 20, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

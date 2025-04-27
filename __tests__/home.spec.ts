@@ -15,9 +15,22 @@ test.describe('HomePage renders correctly', () => {
 
   test('1. Intro section', async ({ page }) => {
     // Check intro section elements visibility
-    await expect(page.getByRole('img', { name: 'Snappy Logo' })).toBeVisible();
-    await expect(page.getByRole('heading', { level: 1, name: 'Snappy' })).toBeVisible();
-    await expect(page.getByText('Draw picture diary for everyday moments special')).toBeVisible();
+    const logo = page.getByRole('img', { name: 'Snappy Logo' });
+    const title = page.getByRole('heading', { level: 1, name: 'Snappy' });
+    const description = page.getByRole('heading', {
+      level: 2,
+      name: 'Draw picture diary for everyday moments special',
+    });
+
+    // Check elements are visible
+    await expect(logo).toBeVisible();
+    await expect(title).toBeVisible();
+    await expect(description).toBeVisible();
+
+    // Check initial animation states
+    await expect(logo).toHaveCSS('opacity', '1');
+    await expect(title).toHaveCSS('opacity', '1');
+    await expect(description).toHaveCSS('opacity', '1');
 
     // Check store buttons
     const appStoreButton = page.getByRole('link', { name: 'Download from App Store (Coming Soon)' });
@@ -25,27 +38,39 @@ test.describe('HomePage renders correctly', () => {
 
     // Verify store buttons are visible and have correct styling
     await expect(appStoreButton).toBeVisible();
-    await expect(appStoreButton).toHaveClass('relative cursor-pointer z-10');
     await expect(googlePlayButton).toBeVisible();
-    await expect(googlePlayButton).toHaveClass('relative cursor-pointer z-10');
 
-    // Test tooltip functionality
+    // Verify button animations
+    await expect(appStoreButton).toHaveCSS('opacity', '1');
+    await expect(googlePlayButton).toHaveCSS('opacity', '1');
+
+    // Test tooltip functionality for App Store
     await appStoreButton.click();
-    await expect(page.getByText('Coming Soon')).toBeVisible();
-    await expect(page.getByText('Coming Soon')).toHaveCSS('opacity', '1');
+    const appStoreTooltip = page.getByText('Coming Soon');
+    await expect(appStoreTooltip).toBeVisible();
+    await expect(appStoreTooltip).toHaveCSS('opacity', '1');
+    await expect(appStoreTooltip).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
 
     // Wait for tooltip to disappear
     await page.waitForTimeout(3000);
-    await expect(page.getByText('Coming Soon')).not.toBeVisible();
+    await expect(appStoreTooltip).not.toBeVisible();
 
-    // Test Google Play tooltip
+    // Test tooltip functionality for Google Play
     await googlePlayButton.click();
-    await expect(page.getByText('Coming Soon')).toBeVisible();
-    await expect(page.getByText('Coming Soon')).toHaveCSS('opacity', '1');
+    const googlePlayTooltip = page.getByText('Coming Soon');
+    await expect(googlePlayTooltip).toBeVisible();
+    await expect(googlePlayTooltip).toHaveCSS('opacity', '1');
+    await expect(googlePlayTooltip).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
 
     // Wait for tooltip to disappear
     await page.waitForTimeout(3000);
-    await expect(page.getByText('Coming Soon')).not.toBeVisible();
+    await expect(googlePlayTooltip).not.toBeVisible();
+
+    // Verify Sparkles component
+    const sparkles = page.locator('.absolute.inset-x-0.-bottom-14');
+    await expect(sparkles).toBeVisible();
+    await expect(sparkles).toHaveCSS('z-index', '2');
+    await expect(sparkles).toHaveCSS('height', '400px');
   });
 
   test('2. Strengths section', async ({ page }) => {
