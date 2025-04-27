@@ -18,4 +18,22 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
+
+  --animate-border: border 4s linear infinite;
+
+  @keyframes border {
+    to {
+      --border-angle: 360deg;
+    }
+  }
+}
+
+@property --border-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: '<angle>';
+}
+
+.animation-border {
+  animation: border 4s linear infinite;
 }

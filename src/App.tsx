@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import { GlobalPortal } from 'utils/GlobalPortal';
 
 const Strengths = lazy(() => import('components/Strengths'));
+const Subscription = lazy(() => import('components/Subscription'));
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <main className="flex flex-col flex-1 overflow-hidden">
         <Intro />
         <Strengths />
+        <Subscription />
       </main>
       <ScrollHint />
     </GlobalPortal.Provider>

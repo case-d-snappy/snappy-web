@@ -1,0 +1,240 @@
+import StarBold from 'assets/svgs/star_bold.svg';
+import { motion } from 'framer-motion';
+import React, { MouseEvent, useRef, useState } from 'react';
+import TextAnimation from 'utils/scroll-text';
+import { cn } from 'utils/styles';
+
+interface PlanOption {
+  id: string;
+  name: string;
+  price: number;
+  interval: 'month' | 'year';
+  description: string;
+  features: string[];
+  isPopular?: boolean;
+}
+
+const plans: PlanOption[] = [
+  {
+    id: 'free',
+    name: 'Free Plan',
+    price: 0,
+    interval: 'month',
+    description: 'For beginners to explore our service and start your journey',
+    features: ['1 basic style', 'Limited storage', '1 photo transformation', 'Memory recall features'],
+  },
+  {
+    id: 'pro-monthly',
+    name: 'Pro Plan',
+    price: 9.99,
+    interval: 'month',
+    description: 'For active users to enjoy unlimited AI styling',
+    features: [
+      'Unlimited premium styles',
+      'Unlimited storage',
+      'Unlimited photo transformations',
+      'Advanced editing features',
+      'Multiple theme and layout options',
+      'Private album creation',
+      'Cloud backup features',
+      'AI emotion analysis',
+      'Statistics and analytics dashboard',
+      'Photo and diary sharing',
+      'In-app community and feedback features',
+      'Memory recall features',
+    ],
+    isPopular: true,
+  },
+  {
+    id: 'pro-yearly',
+    name: 'Pro Plan (Yearly)',
+    price: 42.99,
+    interval: 'year',
+    description: 'For long-term users to save more with annual payment',
+    features: ['All Pro Plan features', 'Annual payment discount of approximately 64%'],
+  },
+];
+
+const Subscription = () => {
+  return (
+    <section
+      className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20"
+      aria-labelledby="subscription-title"
+    >
+      <div className="flex flex-col gap-6 items-center">
+        <TextAnimation
+          as="h2"
+          text="Enhance Your Memories with Pro Features"
+          variants={{
+            hidden: { filter: 'blur(10px)', opacity: 0, y: 20 },
+            visible: {
+              filter: 'blur(0px)',
+              opacity: 1,
+              y: 0,
+              transition: { ease: 'linear' },
+            },
+          }}
+          className="text-4xl font-extrabold text-center"
+        />
+        <TextAnimation
+          as="p"
+          letterAnime={true}
+          text="Make special moments even more extraordinary with unlimited AI styling"
+          className="text-xl w-3/5 mx-auto leading-5 text-[#999999] text-center"
+          variants={{
+            hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
+            visible: {
+              filter: 'blur(0px)',
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.2,
+              },
+            },
+          }}
+        />
+      </div>
+      <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
+        {plans.map((plan, index) => (
+          <motion.div
+            key={plan.id}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: index * 0.2,
+              ease: 'easeOut',
+            }}
+            role="listitem"
+          >
+            <PlanCard plan={plan} />
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    setOverlayColor({ x, y });
+  };
+
+  const boxWrapper = useRef(null);
+  const [overlayColor, setOverlayColor] = useState({ x: 0, y: 0 });
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleSubscribeClick = () => {
+    setShowTooltip(true);
+    setTimeout(() => {
+      setShowTooltip(false);
+    }, 3000);
+  };
+
+  return (
+    <motion.div
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      ref={boxWrapper}
+      onMouseMove={handleMouseMove}
+      className={cn(
+        'w-full max-w-[422px] h-full mx-auto rounded-3xl border-transparent',
+        '[background:linear-gradient(45deg,#080b11,theme(colors.slate.800)_50%,#172033)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.600/.48)_80%,_theme(colors.indigo.500)_86%,_theme(colors.indigo.300)_90%,_theme(colors.indigo.500)_94%,_theme(colors.slate.600/.48))_border-box]',
+        plan.isPopular && 'border animate-border'
+      )}
+      role="article"
+      aria-label={`${plan.name} subscription option`}
+    >
+      <div
+        className="relative z-10 px-6 py-8 rounded-3xl w-full h-full mx-auto flex flex-col gap-2 items-stretch"
+        style={{
+          background: `radial-gradient(250px circle at ${overlayColor.x}px ${overlayColor.y}px,rgba(16, 169, 255, 0.137),transparent 80%)`,
+        }}
+      >
+        {plan.isPopular && (
+          <motion.div
+            className="w-fit absolute top-6 right-5"
+            whileInView={{
+              rotate: [0, -3, 3, -3, 0],
+            }}
+            transition={{
+              duration: 0.9,
+              repeat: Infinity,
+              ease: 'linear',
+              repeatDelay: 1,
+            }}
+            role="status"
+            aria-label="Popular plan badge"
+          >
+            <div className="pl-2.5 pr-3.5 py-2 rounded-full bg-[#FF2768] flex items-center gap-2 w-full shadow-lg">
+              <StarBold className="min-w-4 w-5 h-4 text-white" aria-hidden="true" />
+              <span className="text-sm font-bold text-white">POPULAR</span>
+            </div>
+          </motion.div>
+        )}
+
+        <h3 className={cn('text-xl font-bold tracking-tight', plan.isPopular ? 'text-[#10A9FF]' : 'text-[#F0EDE5]')}>
+          {plan.name}
+        </h3>
+
+        <div className="mt-3 flex items-baseline" aria-label={`${plan.price} dollars per ${plan.interval}`}>
+          <span className="text-5xl font-bold text-white">${plan.price}</span>
+          <span className="ml-2 text-[#999999]">/{plan.interval}</span>
+        </div>
+
+        <p className="mt-2 text-[#999999]">{plan.description}</p>
+
+        <div className="relative">
+          <button
+            onClick={handleSubscribeClick}
+            className={cn(
+              'mt-8 w-full py-3 px-6 rounded-lg font-semibold hover:bg-[#344859] duration-300 cursor-pointer',
+              plan.isPopular ? 'bg-[#10A9FF] text-white' : 'bg-white text-[#131E28] hover:text-[#F0EDE5]'
+            )}
+            aria-label={`${plan.price === 0 ? 'Start free plan' : 'Start 7 days free trial'}`}
+          >
+            {plan.price === 0 ? 'Start for free' : 'Start Free 7 Days Trial'}
+          </button>
+          {showTooltip && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="absolute left-1/2 -translate-x-1/2 bottom-16 bg-black text-white px-4 py-2 rounded-lg whitespace-nowrap"
+              role="alert"
+            >
+              Coming Soon!
+            </motion.div>
+          )}
+        </div>
+
+        <div className="flex items-center gap-4 my-6">
+          <div className="h-[1px] flex-1 bg-[#373737]" aria-hidden="true"></div>
+          <h4 className="text-[#373737] text-sm font-medium">STAND OUR FEATURES</h4>
+          <div className="h-[1px] flex-1 bg-[#373737]" aria-hidden="true"></div>
+        </div>
+
+        <ul className="space-y-4.5 flex-grow" role="list" aria-label="Plan features">
+          {plan.features.map((feature, index) => (
+            <li key={index} className="flex items-center gap-1 text-[#F0EDE5] text-base">
+              <svg
+                className={cn('min-w-6 w-6 h-6 mr-2', plan.isPopular ? 'text-[#FF8577]' : 'text-[#29EEC7]')}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  );
+};
+
+export default Subscription;
