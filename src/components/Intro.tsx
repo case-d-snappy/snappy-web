@@ -58,14 +58,14 @@ const Intro = () => {
           Snappy
         </motion.h1>
 
-        <motion.p
+        <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-2xl text-[#999999] mt-4 text-center break-words w-full z-10"
         >
           Draw picture diary for everyday moments special
-        </motion.p>
+        </motion.h2>
 
         <div
           ref={container}
