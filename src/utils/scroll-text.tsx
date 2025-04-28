@@ -73,12 +73,12 @@ const TextAnimation = ({
           initial="hidden"
           variants={containerVariants}
           viewport={viewport}
-          className={cn(`inline-block dark:text-white text-black uppercase  `, className)}
+          className={cn('inline-block uppercase', className)}
         >
           {lineAnime ? (
             <>
               {' '}
-              <motion.span className={`inline-block `} variants={modifiedVariants}>
+              <motion.span className="inline-block" variants={modifiedVariants}>
                 {text}
               </motion.span>
             </>
@@ -87,13 +87,13 @@ const TextAnimation = ({
               {text.split(' ').map((word: string, index: number) => (
                 <motion.span
                   key={index}
-                  className={`inline-block `}
+                  className="inline-block"
                   variants={letterAnime === false ? modifiedVariants : {}}
                 >
                   {letterAnime ? (
                     <>
                       {word.split('').map((letter: string, index: number) => (
-                        <motion.span key={index} className={`inline-block `} variants={modifiedVariants}>
+                        <motion.span key={index} className="inline-block" variants={modifiedVariants}>
                           {letter}
                         </motion.span>
                       ))}

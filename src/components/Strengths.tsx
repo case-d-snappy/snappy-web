@@ -19,13 +19,13 @@ const Strengths = () => {
                 transition: { ease: 'linear' },
               },
             }}
-            className="text-4xl font-extrabold text-center"
+            className="text-4xl font-extrabold text-center text-white"
           />
           <TextAnimation
             as="p"
             letterAnime={true}
             text="Record your precious daily moments with AI styling, and check your diary and photos at a glance."
-            className="text-xl w-3/5 mx-auto lowercase leading-5 text-[#999999] text-center"
+            className="text-xl w-full mx-auto lowercase leading-5 text-[#999999] text-center"
             variants={{
               hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
               visible: {

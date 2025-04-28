@@ -74,13 +74,13 @@ const Subscription = () => {
               transition: { ease: 'linear' },
             },
           }}
-          className="text-4xl font-extrabold text-center"
+          className="text-4xl font-extrabold text-center text-white"
         />
         <TextAnimation
           as="p"
           letterAnime={true}
           text="Make special moments even more extraordinary with unlimited AI styling"
-          className="text-xl w-3/5 mx-auto leading-5 text-[#999999] text-center"
+          className="text-xl w-full mx-auto leading-5 text-[#999999] text-center"
           variants={{
             hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
             visible: {
@@ -184,7 +184,7 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
           <span className="ml-2 text-[#999999]">/{plan.interval}</span>
         </div>
 
-        <p className="mt-2 text-[#999999]">{plan.description}</p>
+        <p className="mt-2 text-[#999999] min-h-12">{plan.description}</p>
 
         <div className="relative">
           <button
@@ -218,7 +218,7 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
 
         <ul className="space-y-4.5 flex-grow" role="list" aria-label="Plan features">
           {plan.features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-1 text-[#F0EDE5] text-base">
+            <li key={index} className="flex items-start-start gap-1 text-[#F0EDE5] text-base">
               <svg
                 className={cn('min-w-6 w-6 h-6 mr-2', plan.isPopular ? 'text-[#FF8577]' : 'text-[#29EEC7]')}
                 fill="none"
