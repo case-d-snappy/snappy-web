@@ -65,11 +65,38 @@ test.describe('HomePage renders correctly', () => {
     await expect(googlePlayTooltip).not.toBeVisible({ timeout: 5000 });
   });
 
-  test('2. Strengths section', async ({ page }) => {
+  test('2. Concept section', async ({ page }) => {
     // Check main heading and description
     const mainHeading = page.getByRole('heading', {
       level: 2,
-      name: 'Record precious moments specially and check them at a glance.',
+      name: 'One photo, infinite emotions',
+    });
+    await expect(mainHeading).toBeVisible();
+    await mainHeading.scrollIntoViewIfNeeded();
+    await expect(
+      page.getByText('Upload your photo or write a diary and let AI turn them into a picture with various styles')
+    ).toBeVisible();
+
+    // Check image
+    const conceptImage = page.locator('img[alt="Mock detail screen"]');
+    await expect(conceptImage).toBeVisible();
+
+    // Check slider functionality
+    const slider = page.locator('.sliderImageBar_dividing_line__circle');
+    await expect(slider).toBeVisible();
+
+    // Check "Before" and "After" labels
+    const beforeLabel = page.getByText('Before');
+    const afterLabel = page.getByText('After');
+    await expect(beforeLabel).toBeVisible();
+    await expect(afterLabel).toBeVisible();
+  });
+
+  test('3. Strengths section', async ({ page }) => {
+    // Check main heading and description
+    const mainHeading = page.getByRole('heading', {
+      level: 2,
+      name: 'Capture and relive your moments instantly.',
     });
     await expect(mainHeading).toBeVisible();
     await mainHeading.scrollIntoViewIfNeeded();
@@ -114,7 +141,7 @@ test.describe('HomePage renders correctly', () => {
     await expect(page.locator('img[alt="Calender Screen"]')).toBeVisible();
   });
 
-  test('3. Subscription section', async ({ page }) => {
+  test('4. Subscription section', async ({ page }) => {
     // Check main heading and description
     await expect(
       page.getByRole('heading', {

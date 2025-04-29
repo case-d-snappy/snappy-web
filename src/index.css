@@ -37,3 +37,24 @@
 .animation-border {
   animation: border 4s linear infinite;
 }
+
+.sliderImageBar_dividing_line__circle {
+  border: 2px solid #fff;
+  content: '';
+  height: 32px;
+  width: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  border-radius: 100%;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  display: -moz-box;
+  display: flex;
+  justify-content: space-around;
+  -moz-box-align: center;
+  align-items: center;
+}

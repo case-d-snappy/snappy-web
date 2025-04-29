@@ -57,59 +57,58 @@ const plans: PlanOption[] = [
 
 const Subscription = () => {
   return (
-    <section
-      className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20"
-      aria-labelledby="subscription-title"
-    >
-      <div className="flex flex-col gap-6 items-center">
-        <TextAnimation
-          as="h2"
-          text="Enhance Your Memories with Pro Features"
-          variants={{
-            hidden: { filter: 'blur(10px)', opacity: 0, y: 20 },
-            visible: {
-              filter: 'blur(0px)',
-              opacity: 1,
-              y: 0,
-              transition: { ease: 'linear' },
-            },
-          }}
-          className="text-4xl font-extrabold text-center text-white"
-        />
-        <TextAnimation
-          as="p"
-          letterAnime={true}
-          text="Make special moments even more extraordinary with unlimited AI styling"
-          className="text-xl w-full mx-auto leading-5 text-[#999999] text-center"
-          variants={{
-            hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
-            visible: {
-              filter: 'blur(0px)',
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.2,
+    <section aria-labelledby="subscription-title" className="bg-[#344859]">
+      <div className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20">
+        <div className="flex flex-col gap-6 items-center">
+          <TextAnimation
+            as="h2"
+            text="Enhance Your Memories with Pro Features"
+            variants={{
+              hidden: { filter: 'blur(10px)', opacity: 0, y: 20 },
+              visible: {
+                filter: 'blur(0px)',
+                opacity: 1,
+                y: 0,
+                transition: { ease: 'linear' },
               },
-            },
-          }}
-        />
-      </div>
-      <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
-        {plans.map((plan, index) => (
-          <motion.div
-            key={plan.id}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: index * 0.2,
-              ease: 'easeOut',
             }}
-            role="listitem"
-          >
-            <PlanCard plan={plan} />
-          </motion.div>
-        ))}
+            className="text-4xl font-extrabold text-center text-white"
+          />
+          <TextAnimation
+            as="p"
+            letterAnime={true}
+            text="Make special moments even more extraordinary with unlimited AI styling"
+            className="text-xl w-full mx-auto lowercase leading-5 text-[#999999] text-center"
+            variants={{
+              hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
+              visible: {
+                filter: 'blur(0px)',
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.2,
+                },
+              },
+            }}
+          />
+        </div>
+        <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={plan.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.2,
+                ease: 'easeOut',
+              }}
+              role="listitem"
+            >
+              <PlanCard plan={plan} />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
