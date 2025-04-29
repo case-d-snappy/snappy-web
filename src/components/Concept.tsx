@@ -16,14 +16,15 @@ function Concept() {
   }, []);
 
   const handleMouseMove = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
+    (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
       if (!isDragging) {
         return;
       }
 
       const sliderRect = event.currentTarget.getBoundingClientRect();
+      const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
 
-      setSliderPosition(Math.min(Math.max(((event.clientX - sliderRect.left) / sliderRect.width) * 100, 0), 100));
+      setSliderPosition(Math.min(Math.max(((clientX - sliderRect.left) / sliderRect.width) * 100, 0), 100));
     },
     [isDragging]
   );
@@ -75,6 +76,9 @@ function Concept() {
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onTouchMove={handleMouseMove}
+          onTouchStart={handleMouseDown}
+          onTouchEnd={handleMouseUp}
           role="slider"
           aria-valuenow={sliderPosition}
           aria-valuemin={0}
