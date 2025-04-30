@@ -1,39 +1,39 @@
-import AppStore from 'assets/svgs/app_store.svg';
-import GooglePlay from 'assets/svgs/google_play.svg';
 import SnappyLogo from 'assets/svgs/snappy.svg';
-import { Sparkles } from 'components/Sparkles';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+
+import PreorderButton from './PreorderButton';
 
 function Intro() {
-  const container = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+  // const container = useRef<HTMLDivElement>(null);
 
-  const handleClickAppStore = (platform: 'appStore' | 'googlePlay') => {
-    const tooltip = document.createElement('div');
-    tooltip.className = `absolute -top-12 ${
-      platform === 'appStore' ? 'left-5.5' : 'lg:right-5.5'
-    } bg-black/80 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap w-fit`;
-    tooltip.textContent = 'Coming Soon';
-    tooltip.style.opacity = '0';
-    tooltip.style.transform = 'translateY(20px)';
+  // const handleClickAppStore = (platform: 'appStore' | 'googlePlay') => {
+  //   const tooltip = document.createElement('div');
+  //   tooltip.className = `absolute -top-12 ${
+  //     platform === 'appStore' ? 'left-5.5' : 'lg:right-5.5'
+  //   } bg-black/80 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap w-fit`;
+  //   tooltip.textContent = 'Coming Soon';
+  //   tooltip.style.opacity = '0';
+  //   tooltip.style.transform = 'translateY(20px)';
 
-    container.current?.appendChild(tooltip);
+  //   container.current?.appendChild(tooltip);
 
-    // Spring animation
-    requestAnimationFrame(() => {
-      tooltip.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      tooltip.style.opacity = '1';
-      tooltip.style.transform = 'translateY(0)';
-    });
+  //   // Spring animation
+  //   requestAnimationFrame(() => {
+  //     tooltip.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  //     tooltip.style.opacity = '1';
+  //     tooltip.style.transform = 'translateY(0)';
+  //   });
 
-    setTimeout(() => {
-      tooltip.style.opacity = '0';
-      tooltip.style.transform = 'translateY(-20px)';
-      tooltip.style.transition = 'all 0.3s ease-out';
+  //   setTimeout(() => {
+  //     tooltip.style.opacity = '0';
+  //     tooltip.style.transform = 'translateY(-20px)';
+  //     tooltip.style.transition = 'all 0.3s ease-out';
 
-      setTimeout(() => tooltip.remove(), 300);
-    }, 2700);
-  };
+  //     setTimeout(() => tooltip.remove(), 300);
+  //   }, 2700);
+  // };
 
   return (
     <section className="w-full h-screen relative" role="banner" aria-label="Introduction">
@@ -53,7 +53,7 @@ function Intro() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-7xl font-extrabold text-[#F0EDE5] mt-4 z-10"
         >
-          Snappy
+          {t('title')}
         </motion.h1>
 
         <motion.h2
@@ -62,10 +62,19 @@ function Intro() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-2xl text-[#999999] mt-4 text-center break-words w-full z-10"
         >
-          Draw picture diary for everyday moments special
+          <Trans i18nKey="description" />
         </motion.h2>
 
-        <div className="relative w-full" role="complementary">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-10"
+          role="complementary"
+        >
+          <PreorderButton />
+        </motion.div>
+        {/* <div className="relative w-full" role="complementary">
           <div
             ref={container}
             className="relative flex gap-6 mt-16 xs:flex-row flex-col justify-center items-center w-fit mx-auto"
@@ -101,7 +110,7 @@ function Intro() {
             direction="top"
             className="absolute inset-x-0 -bottom-22 z-[2] h-80 w-screen overflow-hidden [mask-image:radial-gradient(100%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_80%)] before:opacity-40 after:absolute"
           />
-        </div>
+        </div> */}
       </div>
     </section>
   );

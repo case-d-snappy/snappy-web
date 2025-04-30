@@ -1,15 +1,18 @@
 import { IMAGE_URL } from 'constants/comoon';
 import { motion } from 'framer-motion';
+import { Trans, useTranslation } from 'react-i18next';
 import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 function Strengths() {
+  const { t, i18n } = useTranslation();
+
   return (
     <section className="container mx-auto flex flex-col gap-40 px-5 py-30">
       <div className="flex flex-col gap-6 items-center">
         <TextAnimation
           as="h2"
-          text="Capture and relive your moments instantly."
+          text={t('strengths.title')}
           variants={{
             hidden: { filter: 'blur(10px)', opacity: 0, y: 20 },
             visible: {
@@ -19,12 +22,12 @@ function Strengths() {
               transition: { ease: 'linear' },
             },
           }}
-          className="text-4xl font-extrabold text-center text-white"
+          className="text-4xl font-extrabold text-center text-white uppercase"
         />
         <TextAnimation
           as="p"
           letterAnime={true}
-          text="Record your precious daily moments with AI styling, and check your diary and photos at a glance."
+          text={t('strengths.description')}
           className="text-xl w-full mx-auto lowercase leading-5 text-[#999999] text-center"
           variants={{
             hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
@@ -52,21 +55,17 @@ function Strengths() {
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-6 items-center lg:items-start"
         >
-          <h3 className="text-5xl font-extrabold text-[#F0EDE5] text-center lg:text-left">
-            Make your memories shine brighter
-            <br />
-            with AI-powered photo styling
+          <h3 className="text-5xl font-extrabold text-[#F0EDE5] text-center lg:text-left leading-14">
+            <Trans i18nKey="strengths.first.title" />
           </h3>
-          <h4 className="text-2xl text-[#999999] text-center lg:text-left">
-            Capture the moment you want to remember, choose a style, and let AI make it special.
-          </h4>
+          <h4 className="text-2xl text-[#999999] text-center lg:text-left">{t('strengths.first.description')}</h4>
         </motion.div>
         <motion.img
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="w-full xs:w-auto xs:max-h-[858px]"
-          src={`${IMAGE_URL}/mock_day_card.png`}
+          src={`${IMAGE_URL}/${i18n.language}/mock_day_picture_screen.png`}
           alt="Day Card"
         />
       </div>
@@ -83,21 +82,17 @@ function Strengths() {
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-6 items-center lg:items-start"
         >
-          <h3 className="text-5xl font-extrabold text-[#F0EDE5] text-center lg:text-left">
-            Write it down,
-            <br />
-            Snappy's AI turn them into a beautiful picture diary
+          <h3 className="text-5xl font-extrabold text-[#F0EDE5] text-center lg:text-left leading-14">
+            <Trans i18nKey="strengths.second.title" />
           </h3>
-          <h4 className="text-2xl text-[#999999] text-center lg:text-left">
-            Write your daily diary and emotions, and AI will create a picture diary for you.
-          </h4>
+          <h4 className="text-2xl text-[#999999] text-center lg:text-left">{t('strengths.second.description')}</h4>
         </motion.div>
         <motion.img
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="w-full xs:w-auto xs:max-h-[858px]"
-          src={`${IMAGE_URL}/mock_detail_card.png`}
+          src={`${IMAGE_URL}/${i18n.language}/mock_day_text_screen.png`}
           alt="Detail Card"
         />
       </div>
@@ -114,19 +109,17 @@ function Strengths() {
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-6 items-center lg:items-start"
         >
-          <h3 className="text-5xl font-extrabold text-[#F0EDE5] text-center lg:text-left">
-            See all your days at a glance
+          <h3 className="text-5xl font-extrabold text-[#F0EDE5] text-center lg:text-left leading-14">
+            {t('strengths.third.title')}
           </h3>
-          <h4 className="text-2xl text-[#999999] text-center lg:text-left">
-            View all your days in one place, displayed in card or calendar format.
-          </h4>
+          <h4 className="text-2xl text-[#999999] text-center lg:text-left">{t('strengths.third.description')}</h4>
         </motion.div>
         <motion.img
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="w-full xs:w-auto xs:max-h-[858px]"
-          src={`${IMAGE_URL}/mock_calender_screen.png`}
+          src={`${IMAGE_URL}/${i18n.language}/mock_calender_screen.png`}
           alt="Calender Screen"
         />
       </div>

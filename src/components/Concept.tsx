@@ -2,10 +2,13 @@ import ChevronLeft from 'assets/svgs/chevron_left.svg';
 import ChevronRight from 'assets/svgs/chevron_right.svg';
 import { IMAGE_URL } from 'constants/comoon';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 function Concept() {
+  const { t, i18n } = useTranslation();
+
   const [sliderPosition, setSliderPosition] = useState(43);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -45,7 +48,7 @@ function Concept() {
         <div className="flex flex-col gap-6 items-center">
           <TextAnimation
             as="h2"
-            text="One photo, infinite emotions"
+            text={t('concept.title')}
             variants={{
               hidden: { filter: 'blur(10px)', opacity: 0, y: 20 },
               visible: {
@@ -55,12 +58,12 @@ function Concept() {
                 transition: { ease: 'linear' },
               },
             }}
-            className="text-4xl font-extrabold text-center text-white"
+            className="text-4xl font-extrabold text-center text-white uppercase"
           />
           <TextAnimation
             as="p"
             letterAnime={true}
-            text="Upload your photo or write a diary and let AI turn them into a picture with various styles"
+            text={t('concept.description')}
             className="text-xl w-full mx-auto lowercase leading-5 text-[#999999] text-center"
             variants={{
               hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
@@ -106,7 +109,7 @@ function Concept() {
             <div className="relative w-full h-full">
               <img
                 className="w-full h-full block bg-white max-w-none object-cover"
-                src={`${IMAGE_URL}/mock_detail_screen.png`}
+                src={`${IMAGE_URL}/${i18n.language}/mock_detail_screen.png`}
                 alt="Mock detail screen"
               />
 
@@ -125,8 +128,8 @@ function Concept() {
                 onTouchStart={handleMouseDown}
                 onTouchEnd={handleMouseUp}
                 className={cn(
-                  'absolute top-15 left-3 right-3 w-[100%-20px] h-75 rounded-[29px] overflow-clip',
-                  'md:top-21.5 md:left-5 md:right-5 md:h-106.5 '
+                  'absolute top-19.5 left-3 right-3 w-[100%-20px] h-75 rounded-[29px] overflow-clip',
+                  'md:top-27.5 md:left-5 md:right-5 md:h-106.5 '
                 )}
               >
                 <div

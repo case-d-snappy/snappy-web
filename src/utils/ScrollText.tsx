@@ -73,7 +73,7 @@ const TextAnimation = ({
       initial="hidden"
       variants={containerVariants}
       viewport={viewport}
-      className={cn('inline-block uppercase', className)}
+      className={cn('inline-block', className)}
     >
       {lineAnime ? (
         <>

@@ -1,0 +1,69 @@
+{
+  "title": "Snappy",
+  "description": "Draw picture diary for everyday moments special",
+  "concept": {
+    "title": "One photo, infinite emotions",
+    "description": "Upload your photo or write a diary and let AI turn them into a picture with various styles"
+  },
+  "strengths": {
+    "title": "Capture your moments, Snappy will make them extraordinary",
+    "description": "Record your precious daily moments with AI styling, and check your diary and photos at a glance.",
+    "first": {
+      "title": "Make your memories shine brighter with AI-powered photo styling",
+      "description": "Capture the moment you want to remember, choose a style, and let AI make it special."
+    },
+    "second": {
+      "title": "Write it down,<br />Snappy's AI turn them into a beautiful picture diary",
+      "description": "Write your daily diary and emotions, and AI will create a picture diary for you."
+    },
+    "third": {
+      "title": "See all your days at a glance",
+      "description": "View all your days in one place, displayed in card or calendar format."
+    }
+  },
+  "subscription": {
+    "title": "Enhance Your Memories with Pro Features",
+    "description": "Make special moments even more extraordinary with unlimited AI styling",
+    "start-for-free": "Start for free",
+    "start-free-trial": "Start Free 7 Days Trial",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "description": "For beginners to explore our service and start your journey",
+        "price": "$0",
+        "interval": "month",
+        "features": ["3 basic style", "Limited storage", "1 photo transformation per day", "Memory recall features"]
+      },
+      "pro-monthly": {
+        "name": "Pro (Monthly)",
+        "description": "For active users to enjoy unlimited AI styling",
+        "price": "$9.99",
+        "interval": "month",
+        "features": [
+          "Unlimited styles",
+          "Unlimited storage",
+          "10 photo transformations per day",
+          "Private album creation",
+          "Cloud backup features",
+          "AI emotion analysis",
+          "Statistics and analytics dashboard",
+          "Share your memories with friends",
+          "Memory recall features"
+        ]
+      },
+      "pro-yearly": {
+        "name": "Pro (Yearly)",
+        "description": "For long-term users to save more with annual payment",
+        "price": "$42.99",
+        "interval": "year",
+        "features": ["All Pro Plan features", "Annual payment discount of approximately 64%"]
+      }
+    }
+  },
+  "get-started": {
+    "title": "Start your moment with Snappy",
+    "description": "Preorder now to enjoy a discounted rate of $4.99 per month.",
+    "description2": "Limited quantities available, so reserve quickly!",
+    "button": "Get Started Now!"
+  }
+}

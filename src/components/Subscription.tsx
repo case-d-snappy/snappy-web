@@ -1,68 +1,27 @@
 import StarBold from 'assets/svgs/star_bold.svg';
 import { motion } from 'framer-motion';
 import React, { MouseEvent, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 interface PlanOption {
   id: string;
-  name: string;
-  price: number;
-  interval: 'month' | 'year';
-  description: string;
-  features: string[];
   isPopular?: boolean;
 }
 
-const PLANS: PlanOption[] = [
-  {
-    id: 'free',
-    name: 'Free Plan',
-    price: 0,
-    interval: 'month',
-    description: 'For beginners to explore our service and start your journey',
-    features: ['1 basic style', 'Limited storage', '1 photo transformation', 'Memory recall features'],
-  },
-  {
-    id: 'pro-monthly',
-    name: 'Pro Plan',
-    price: 9.99,
-    interval: 'month',
-    description: 'For active users to enjoy unlimited AI styling',
-    features: [
-      'Unlimited premium styles',
-      'Unlimited storage',
-      'Unlimited photo transformations',
-      'Advanced editing features',
-      'Multiple theme and layout options',
-      'Private album creation',
-      'Cloud backup features',
-      'AI emotion analysis',
-      'Statistics and analytics dashboard',
-      'Photo and diary sharing',
-      'In-app community and feedback features',
-      'Memory recall features',
-    ],
-    isPopular: true,
-  },
-  {
-    id: 'pro-yearly',
-    name: 'Pro Plan (Yearly)',
-    price: 42.99,
-    interval: 'year',
-    description: 'For long-term users to save more with annual payment',
-    features: ['All Pro Plan features', 'Annual payment discount of approximately 64%'],
-  },
-];
+const PLANS: PlanOption[] = [{ id: 'free' }, { id: 'pro-monthly' }, { id: 'pro-yearly', isPopular: true }];
 
 function Subscription() {
+  const { t } = useTranslation();
+
   return (
     <section aria-labelledby="subscription-title" className="bg-[#344859]">
       <div className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20">
         <div className="flex flex-col gap-6 items-center">
           <TextAnimation
             as="h2"
-            text="Enhance Your Memories with Pro Features"
+            text={t('subscription.title')}
             variants={{
               hidden: { filter: 'blur(10px)', opacity: 0, y: 20 },
               visible: {
@@ -72,12 +31,12 @@ function Subscription() {
                 transition: { ease: 'linear' },
               },
             }}
-            className="text-4xl font-extrabold text-center text-white"
+            className="text-4xl font-extrabold text-center text-white uppercase"
           />
           <TextAnimation
             as="p"
             letterAnime={true}
-            text="Make special moments even more extraordinary with unlimited AI styling"
+            text={t('subscription.description')}
             className="text-xl w-full mx-auto lowercase leading-5 text-[#999999] text-center"
             variants={{
               hidden: { filter: 'blur(4px)', opacity: 0, y: 20 },
@@ -115,6 +74,8 @@ function Subscription() {
 }
 
 const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
+  const { t } = useTranslation();
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const { left, top } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
@@ -144,7 +105,7 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
         plan.isPopular && 'border animate-border'
       )}
       role="article"
-      aria-label={`${plan.name} subscription option`}
+      aria-label={`${t(`subscription.plans.${plan.id}.name`)} subscription option`}
     >
       <div
         className="relative z-10 px-6 py-8 rounded-3xl w-full h-full mx-auto flex flex-col gap-2 items-stretch"
@@ -175,15 +136,18 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
         )}
 
         <h3 className={cn('text-xl font-bold tracking-tight', plan.isPopular ? 'text-[#10A9FF]' : 'text-[#F0EDE5]')}>
-          {plan.name}
+          {t(`subscription.plans.${plan.id}.name`)}
         </h3>
 
-        <div className="mt-3 flex items-baseline" aria-label={`${plan.price} dollars per ${plan.interval}`}>
-          <span className="text-5xl font-bold text-white">${plan.price}</span>
-          <span className="ml-2 text-[#999999]">/{plan.interval}</span>
+        <div
+          className="mt-3 flex items-baseline"
+          aria-label={`${t(`subscription.plans.${plan.id}.price`)} dollars per ${t(`subscription.plans.${plan.id}.interval`)}`}
+        >
+          <span className="text-5xl font-bold text-white">{t(`subscription.plans.${plan.id}.price`)}</span>
+          <span className="ml-2 text-[#999999]">/{t(`subscription.plans.${plan.id}.interval`)}</span>
         </div>
 
-        <p className="mt-2 text-[#999999] min-h-12">{plan.description}</p>
+        <p className="mt-2 text-[#999999] min-h-12">{t(`subscription.plans.${plan.id}.description`)}</p>
 
         <div className="relative">
           <button
@@ -192,9 +156,9 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
               'mt-8 w-full py-3 px-6 rounded-lg font-semibold hover:bg-[#344859] duration-300 cursor-pointer',
               plan.isPopular ? 'bg-[#10A9FF] text-white' : 'bg-white text-[#131E28] hover:text-[#F0EDE5]'
             )}
-            aria-label={`${plan.price === 0 ? 'Start free plan' : 'Start 7 days free trial'}`}
+            aria-label={t(plan.id === 'free' ? 'subscription.start-for-free' : 'subscription.start-free-trial')}
           >
-            {plan.price === 0 ? 'Start for free' : 'Start Free 7 Days Trial'}
+            {t(plan.id === 'free' ? 'subscription.start-for-free' : 'subscription.start-free-trial')}
           </button>
           {showTooltip && (
             <motion.div
@@ -216,20 +180,22 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
         </div>
 
         <ul className="space-y-4.5 flex-grow" role="list" aria-label="Plan features">
-          {plan.features.map((feature, index) => (
-            <li key={index} className="flex items-start-start gap-1 text-[#F0EDE5] text-base">
-              <svg
-                className={cn('min-w-6 w-6 h-6 mr-2', plan.isPopular ? 'text-[#FF8577]' : 'text-[#29EEC7]')}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-              </svg>
-              {feature}
-            </li>
-          ))}
+          {t(`subscription.plans.${plan.id}.features`, { returnObjects: true }).map(
+            (feature: string, index: number) => (
+              <li key={index} className="flex items-start-start gap-1 text-[#F0EDE5] text-base">
+                <svg
+                  className={cn('min-w-6 w-6 h-6 mr-2', plan.isPopular ? 'text-[#FF8577]' : 'text-[#29EEC7]')}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            )
+          )}
         </ul>
       </div>
     </motion.div>
