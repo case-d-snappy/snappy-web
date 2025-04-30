@@ -65,5 +65,9 @@
     "description": "Preorder now to enjoy a discounted rate of $4.99 per month.",
     "description2": "Limited quantities available, so reserve quickly!",
     "button": "Get Started Now!"
+  },
+  "promote-plandy": {
+    "title": "Check out our sister app Plandy",
+    "description": "A calendar & reminder app that helps you plan your life."
   }
 }
