@@ -1,11 +1,11 @@
 import AppStore from 'assets/svgs/app_store.svg';
 import GooglePlay from 'assets/svgs/google_play.svg';
 import SnappyLogo from 'assets/svgs/snappy.svg';
+import { Sparkles } from 'components/Sparkles';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
-import { Sparkles } from 'utils/Sparkles';
 
-const Intro = () => {
+function Intro() {
   const container = useRef<HTMLDivElement>(null);
 
   const handleClickAppStore = (platform: 'appStore' | 'googlePlay') => {
@@ -105,6 +105,6 @@ const Intro = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Intro;

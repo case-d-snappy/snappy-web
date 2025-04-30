@@ -1,8 +1,10 @@
 import { type HTMLMotionProps, motion } from 'framer-motion';
 import React, { type JSX } from 'react';
 import { cn } from 'utils/styles';
+
 type Direction = 'up' | 'down' | 'left' | 'right';
 
+const defaultViewport = { amount: 0.3, margin: '0px 0px 0px 0px' };
 const containerVariants = {
   hidden: {},
   visible: {
@@ -11,6 +13,7 @@ const containerVariants = {
     },
   },
 };
+
 const generateVariants = (direction: Direction): { hidden: any; visible: any } => {
   const axis = direction === 'left' || direction === 'right' ? 'x' : 'y';
   const value = direction === 'right' || direction === 'down' ? 100 : -100;
@@ -28,8 +31,6 @@ const generateVariants = (direction: Direction): { hidden: any; visible: any } =
     },
   };
 };
-
-const defaultViewport = { amount: 0.3, margin: '0px 0px 0px 0px' };
 
 const TextAnimation = ({
   as = 'h1',
@@ -65,50 +66,43 @@ const TextAnimation = ({
     },
   };
   const MotionComponent = motion[as as keyof typeof motion] as React.ComponentType<HTMLMotionProps<any>>;
+
   return (
-    <>
-      <>
-        <MotionComponent
-          whileInView="visible"
-          initial="hidden"
-          variants={containerVariants}
-          viewport={viewport}
-          className={cn('inline-block uppercase', className)}
-        >
-          {lineAnime ? (
-            <>
-              {' '}
-              <motion.span className="inline-block" variants={modifiedVariants}>
-                {text}
-              </motion.span>
-            </>
-          ) : (
-            <>
-              {text.split(' ').map((word: string, index: number) => (
-                <motion.span
-                  key={index}
-                  className="inline-block"
-                  variants={letterAnime === false ? modifiedVariants : {}}
-                >
-                  {letterAnime ? (
-                    <>
-                      {word.split('').map((letter: string, index: number) => (
-                        <motion.span key={index} className="inline-block" variants={modifiedVariants}>
-                          {letter}
-                        </motion.span>
-                      ))}
-                      &nbsp;
-                    </>
-                  ) : (
-                    <>{word}&nbsp;</>
-                  )}
-                </motion.span>
-              ))}
-            </>
-          )}
-        </MotionComponent>
-      </>
-    </>
+    <MotionComponent
+      whileInView="visible"
+      initial="hidden"
+      variants={containerVariants}
+      viewport={viewport}
+      className={cn('inline-block uppercase', className)}
+    >
+      {lineAnime ? (
+        <>
+          {' '}
+          <motion.span className="inline-block" variants={modifiedVariants}>
+            {text}
+          </motion.span>
+        </>
+      ) : (
+        <>
+          {text.split(' ').map((word: string, index: number) => (
+            <motion.span key={index} className="inline-block" variants={letterAnime === false ? modifiedVariants : {}}>
+              {letterAnime ? (
+                <>
+                  {word.split('').map((letter: string, index: number) => (
+                    <motion.span key={index} className="inline-block" variants={modifiedVariants}>
+                      {letter}
+                    </motion.span>
+                  ))}
+                  &nbsp;
+                </>
+              ) : (
+                <>{word}&nbsp;</>
+              )}
+            </motion.span>
+          ))}
+        </>
+      )}
+    </MotionComponent>
   );
 };
 

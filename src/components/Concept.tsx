@@ -2,7 +2,7 @@ import ChevronLeft from 'assets/svgs/chevron_left.svg';
 import ChevronRight from 'assets/svgs/chevron_right.svg';
 import { IMAGE_URL } from 'constants/comoon';
 import { useCallback, useState } from 'react';
-import TextAnimation from 'utils/scroll-text';
+import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 function Concept() {

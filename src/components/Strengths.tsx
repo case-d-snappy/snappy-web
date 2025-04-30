@@ -1,8 +1,9 @@
 import { IMAGE_URL } from 'constants/comoon';
 import { motion } from 'framer-motion';
-import TextAnimation from 'utils/scroll-text';
+import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
-const Strengths = () => {
+
+function Strengths() {
   return (
     <section className="container mx-auto flex flex-col gap-40 px-5 py-30">
       <div className="flex flex-col gap-6 items-center">
@@ -131,6 +132,6 @@ const Strengths = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Strengths;

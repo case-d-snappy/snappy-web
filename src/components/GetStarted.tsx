@@ -1,6 +1,6 @@
-import TextAnimation from 'utils/scroll-text';
+import TextAnimation from 'utils/ScrollText';
 
-const GetStarted = () => {
+function GetStarted() {
   return (
     <section className="container mx-auto flex flex-col items-center gap-10 px-5 py-30">
       <TextAnimation
@@ -42,6 +42,6 @@ const GetStarted = () => {
       </button>
     </section>
   );
-};
+}
 
 export default GetStarted;

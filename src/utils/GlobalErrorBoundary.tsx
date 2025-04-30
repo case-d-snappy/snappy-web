@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
-export const GlobalErrorBoundary = ({ children }: { children: React.ReactNode }) => {
+export function GlobalErrorBoundary({ children }: { children: React.ReactNode }) {
   return (
     <ErrorBoundary
       FallbackComponent={({ error, resetErrorBoundary }) => (
@@ -24,4 +24,4 @@ export const GlobalErrorBoundary = ({ children }: { children: React.ReactNode })
       </Suspense>
     </ErrorBoundary>
   );
-};
+}

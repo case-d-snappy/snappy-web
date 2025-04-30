@@ -1,7 +1,7 @@
 import StarBold from 'assets/svgs/star_bold.svg';
 import { motion } from 'framer-motion';
 import React, { MouseEvent, useRef, useState } from 'react';
-import TextAnimation from 'utils/scroll-text';
+import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 interface PlanOption {
@@ -14,7 +14,7 @@ interface PlanOption {
   isPopular?: boolean;
 }
 
-const plans: PlanOption[] = [
+const PLANS: PlanOption[] = [
   {
     id: 'free',
     name: 'Free Plan',
@@ -55,7 +55,7 @@ const plans: PlanOption[] = [
   },
 ];
 
-const Subscription = () => {
+function Subscription() {
   return (
     <section aria-labelledby="subscription-title" className="bg-[#344859]">
       <div className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20">
@@ -93,7 +93,7 @@ const Subscription = () => {
           />
         </div>
         <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
-          {plans.map((plan, index) => (
+          {PLANS.map((plan, index) => (
             <motion.div
               key={plan.id}
               initial={{ opacity: 0, y: 50 }}
@@ -112,7 +112,7 @@ const Subscription = () => {
       </div>
     </section>
   );
-};
+}
 
 const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
