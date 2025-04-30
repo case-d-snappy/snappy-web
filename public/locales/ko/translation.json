@@ -30,14 +30,12 @@
       "free": {
         "name": "Free",
         "description": "처음 이용하는 유저를 위한 플랜",
-        "price": "0원",
         "interval": "월",
         "features": ["3가지 스타일", "제한된 저장공간", "하루 1장 변환", "기억 회상 기능"]
       },
-      "pro-monthly": {
+      "proMonthly": {
         "name": "Pro (월간)",
         "description": "제한 없는 AI 스타일링을 즐기고 싶은 유저를 위한 플랜",
-        "price": "14,900원",
         "interval": "월",
         "features": [
           "무제한 스타일",
@@ -51,10 +49,9 @@
           "기억 회상 기능"
         ]
       },
-      "pro-yearly": {
+      "proYearly": {
         "name": "Pro (연간)",
         "description": "저렴한 비용으로 오래 이용하고 싶은 유저를 위한 플랜",
-        "price": "59,000원",
         "interval": "년",
         "features": ["모든 Pro 기능", "연간 결제 할인 약 67%"]
       }

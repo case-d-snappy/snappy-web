@@ -30,14 +30,12 @@
       "free": {
         "name": "Free",
         "description": "For beginners to explore our service and start your journey",
-        "price": "$0",
         "interval": "month",
         "features": ["3 basic style", "Limited storage", "1 photo transformation per day", "Memory recall features"]
       },
-      "pro-monthly": {
+      "proMonthly": {
         "name": "Pro (Monthly)",
         "description": "For active users to enjoy unlimited AI styling",
-        "price": "$9.99",
         "interval": "month",
         "features": [
           "Unlimited styles",
@@ -51,10 +49,9 @@
           "Memory recall features"
         ]
       },
-      "pro-yearly": {
+      "proYearly": {
         "name": "Pro (Yearly)",
         "description": "For long-term users to save more with annual payment",
-        "price": "$42.99",
         "interval": "year",
         "features": ["All Pro Plan features", "Annual payment discount of approximately 64%"]
       }
@@ -64,7 +61,7 @@
     "title": "Start your moment with Snappy",
     "description": "Preorder now to enjoy a discounted rate of $4.99 per month.",
     "description2": "Limited quantities available, so reserve quickly!",
-    "button": "Get Started Now!"
+    "button": "Preorder Now!"
   },
   "promote-plandy": {
     "title": "Check out our sister app Plandy",

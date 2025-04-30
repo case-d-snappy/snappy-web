@@ -1,5 +1,6 @@
 import StarBold from 'assets/svgs/star_bold.svg';
 import { motion } from 'framer-motion';
+import { formatPrice, useABTesting } from 'hooks/useABTesting';
 import React, { MouseEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextAnimation from 'utils/ScrollText';
@@ -10,10 +11,12 @@ interface PlanOption {
   isPopular?: boolean;
 }
 
-const PLANS: PlanOption[] = [{ id: 'free' }, { id: 'pro-monthly' }, { id: 'pro-yearly', isPopular: true }];
+const PLANS: PlanOption[] = [{ id: 'free' }, { id: 'proMonthly' }, { id: 'proYearly', isPopular: true }];
 
 function Subscription() {
   const { t } = useTranslation();
+
+  const { monthlyPrice, yearlyPrice, isLoading, currency } = useABTesting();
 
   return (
     <section aria-labelledby="subscription-title" className="bg-[#344859]">
@@ -51,29 +54,45 @@ function Subscription() {
             }}
           />
         </div>
-        <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
-          {PLANS.map((plan, index) => (
-            <motion.div
-              key={plan.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.2,
-                ease: 'easeOut',
-              }}
-              role="listitem"
-            >
-              <PlanCard plan={plan} />
-            </motion.div>
-          ))}
-        </div>
+        {!isLoading && (
+          <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
+            {PLANS.map((plan, index) => (
+              <motion.div
+                key={plan.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.2,
+                  ease: 'easeOut',
+                }}
+                role="listitem"
+              >
+                <PlanCard
+                  plan={plan}
+                  price={
+                    plan.id === 'free'
+                      ? formatPrice(0, currency)
+                      : plan.id === 'proMonthly'
+                        ? monthlyPrice.formatted
+                        : yearlyPrice.formatted
+                  }
+                />
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
+interface PlanCardProps {
+  plan: PlanOption;
+  price: string;
+}
+
+const PlanCard: React.FC<PlanCardProps> = ({ plan, price }) => {
   const { t } = useTranslation();
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -108,7 +127,7 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
       aria-label={`${t(`subscription.plans.${plan.id}.name`)} subscription option`}
     >
       <div
-        className="relative z-10 px-6 py-8 rounded-3xl w-full h-full mx-auto flex flex-col gap-2 items-stretch"
+        className="relative z-10 px-6 pt-8 pb-9 rounded-3xl w-full h-full mx-auto flex flex-col gap-2 items-stretch"
         style={{
           background: `radial-gradient(250px circle at ${overlayColor.x}px ${overlayColor.y}px,rgba(16, 169, 255, 0.137),transparent 80%)`,
         }}
@@ -139,12 +158,9 @@ const PlanCard: React.FC<{ plan: PlanOption }> = ({ plan }) => {
           {t(`subscription.plans.${plan.id}.name`)}
         </h3>
 
-        <div
-          className="mt-3 flex items-baseline"
-          aria-label={`${t(`subscription.plans.${plan.id}.price`)} dollars per ${t(`subscription.plans.${plan.id}.interval`)}`}
-        >
-          <span className="text-5xl font-bold text-white">{t(`subscription.plans.${plan.id}.price`)}</span>
-          <span className="ml-2 text-[#999999]">/{t(`subscription.plans.${plan.id}.interval`)}</span>
+        <div className="mt-3 flex items-baseline" aria-label={`${plan.id} ${price}`}>
+          <span className="text-5xl font-bold text-white">{price}</span>
+          <span className="ml-2 text-[#999999]">/ {t(`subscription.plans.${plan.id}.interval`)}</span>
         </div>
 
         <p className="mt-2 text-[#999999] min-h-12">{t(`subscription.plans.${plan.id}.description`)}</p>
