@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Trans, useTranslation } from 'react-i18next';
 
 import PreorderButton from './PreorderButton';
+import { Sparkles } from './Sparkles';
 
 function Intro() {
   const { t } = useTranslation();
@@ -69,13 +70,14 @@ function Intro() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-10"
+          className="mt-10 z-10"
           role="complementary"
         >
           <PreorderButton />
         </motion.div>
-        {/* <div className="relative w-full" role="complementary">
-          <div
+
+        <div className="relative w-full" role="complementary">
+          {/* <div
             ref={container}
             className="relative flex gap-6 mt-16 xs:flex-row flex-col justify-center items-center w-fit mx-auto"
           >
@@ -101,16 +103,16 @@ function Intro() {
             >
               <GooglePlay className="w-40 h-auto" aria-hidden="true" />
             </motion.a>
-          </div>
+          </div> */}
 
           <Sparkles
             density={1800}
             speed={1.2}
             color="#48b6ff"
             direction="top"
-            className="absolute inset-x-0 -bottom-22 z-[2] h-80 w-screen overflow-hidden [mask-image:radial-gradient(100%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_80%)] before:opacity-40 after:absolute"
+            className="absolute inset-x-0 -bottom-20 z-[2] h-80 w-screen overflow-hidden [mask-image:radial-gradient(100%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_80%)] before:opacity-40 after:absolute"
           />
-        </div> */}
+        </div>
       </div>
     </section>
   );
