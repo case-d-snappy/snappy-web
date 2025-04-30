@@ -32,8 +32,8 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snappy</title>
-    <meta name="description" content="Draw picture diary for everyday moments special with AI styling" />
+    <title>Snappy | 스냅피</title>
+    <meta name="description" content="기억하고 싶은 순간을 기록하면 AI가 더욱 특별한 순간으로 만들어 드려요" />
     <meta
       name="keywords"
       lang="en"
@@ -51,21 +51,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <meta property="og:site_name" content="Snappy" data-rh="true" />
-    <meta property="og:title" content="Snappy" data-rh="true" />
+    <meta property="og:title" content="Snappy | 스냅피" data-rh="true" />
     <meta property="og:type" content="website" data-rh="true" />
     <meta
       property="og:description"
-      content="Draw picture diary for everyday moments special with AI styling"
+      content="기억하고 싶은 순간을 기록하면 AI가 더욱 특별한 순간으로 만들어 드려요"
       data-rh="true"
     />
     <meta property="og:image" content="https://static.snappy.style/images/open_graph_logo.png" data-rh="true" />
     <meta property="og:locale" content="en_US" data-rh="true" />
     <meta property="og:url" content="https://www.snappy.style" data-rh="true" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Snappy: AI Picture Diary" data-rh="true" />
+    <meta name="twitter:title" content="Snappy | 스냅피" data-rh="true" />
     <meta
       name="twitter:description"
-      content="Draw picture diary for everyday moments special with AI styling"
+      content="기억하고 싶은 순간을 기록하면 AI가 더욱 특별한 순간으로 만들어 드려요"
       data-rh="true"
     />
     <meta name="twitter:image" content="https://static.snappy.style/images/open_graph_logo.png" />
@@ -73,5 +73,33 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@id": "https://www.snappy.style/#organization",
+        "@type": "Organization",
+        "name": "Snappy",
+        "url": "https://www.snappy.style/",
+        "logo": "https://www.snappy.style/images/open_graph_logo.png",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "email": "support@case-d.com",
+            "contactType": "customer support",
+            "areaServed": "KR",
+            "availableLanguage": ["KO", "EN"]
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@id": "https://www.snappy.style/#website",
+        "@type": "WebSite",
+        "url": "https://www.snappy.style/",
+        "name": "Snappy"
+      }
+    </script>
   </body>
 </html>
