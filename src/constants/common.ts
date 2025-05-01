@@ -4,3 +4,8 @@ export const LanguageCode = {
   EN: 'en',
   KO: 'ko',
 } as const;
+
+export const CountryCode = {
+  KR: 'kr',
+  US: 'us',
+} as const;

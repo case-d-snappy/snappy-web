@@ -7,7 +7,7 @@ export function GlobalErrorBoundary({ children }: { children: React.ReactNode })
       FallbackComponent={({ error, resetErrorBoundary }) => (
         <main className="flex flex-col items-center justify-center h-screen">
           <h1 className="text-2xl font-bold">{error.message}</h1>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={resetErrorBoundary}>
+          <button type="button" className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={resetErrorBoundary}>
             메인화면 이동
           </button>
         </main>

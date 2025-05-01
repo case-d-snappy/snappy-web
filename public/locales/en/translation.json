@@ -57,14 +57,27 @@
       }
     }
   },
-  "get-started": {
+  "getStarted": {
     "title": "Start your moment with Snappy",
-    "description": "Preorder now to enjoy a discounted rate of $4.99 per month.",
+    "description1": "Preorder now to enjoy a discounted rate of <strong>$4.99 per month</strong>.",
     "description2": "Limited quantities available, so reserve quickly!",
     "button": "Preorder Now!"
   },
-  "promote-plandy": {
+  "promotePlandy": {
     "title": "Check out our sister app Plandy",
     "description": "A calendar & reminder app that helps you plan your life."
+  },
+  "preorder": {
+    "title": "Preorder Now!",
+    "description": "Preorder now to enjoy a discounted rate of <strong>$4.99 per month</strong>.<br />Limited quantities available, so reserve quickly!",
+    "term": "This preorder is subject to change at the time of official service launch, and you will be notified via text message or email when the service is launched.",
+    "button": "Preorder Now!",
+    "success": {
+      "title": "Preorder Success!",
+      "agreemarketing": "We will notify you via email when the service is launched :)"
+    }
+  },
+  "common": {
+    "confirm": "Confirm"
   }
 }

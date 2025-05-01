@@ -1,6 +1,7 @@
 import Header from 'components/Header';
 import Intro from 'components/Intro';
 import { ScrollHint } from 'components/ScrollHint';
+import { Toaster } from 'components/ui/sonner';
 import { lazy } from 'react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +34,7 @@ export default function App() {
       </main>
       <Footer />
       <ScrollHint />
+      <Toaster />
     </GlobalPortal.Provider>
   );
 }

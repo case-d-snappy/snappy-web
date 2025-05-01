@@ -1,14 +1,16 @@
+import { CountryCode, LanguageCode } from 'constants/common';
+
 export type PriceVariation = 'A' | 'B' | 'C';
 export type SubscriptionPeriod = 'proMonthly' | 'proYearly';
 
 interface PriceConfig {
   proMonthly: {
-    kr: number;
-    global: number;
+    [CountryCode.KR]: number;
+    [CountryCode.US]: number;
   };
   proYearly: {
-    kr: number;
-    global: number;
+    [CountryCode.KR]: number;
+    [CountryCode.US]: number;
   };
 }
 
@@ -22,32 +24,32 @@ const VARIATIONS: PriceVariation[] = ['A', 'B', 'C'];
 const PRICE_CONFIG: PriceVariationConfig = {
   A: {
     proMonthly: {
-      kr: 11900, // ₩11,900
-      global: 7.99, // $7.99
+      [CountryCode.KR]: 11900, // ₩11,900
+      [CountryCode.US]: 7.99, // $7.99
     },
     proYearly: {
-      kr: 45000, // ₩45,000
-      global: 49.99, // $49.99
+      [CountryCode.KR]: 45000, // ₩45,000
+      [CountryCode.US]: 49.99, // $49.99
     },
   },
   B: {
     proMonthly: {
-      kr: 14900, // ₩14,900
-      global: 9.99, // $9.99
+      [CountryCode.KR]: 14900, // ₩14,900
+      [CountryCode.US]: 9.99, // $9.99
     },
     proYearly: {
-      kr: 59000, // ₩59,000
-      global: 59.99, // $59.99
+      [CountryCode.KR]: 59000, // ₩59,000
+      [CountryCode.US]: 59.99, // $59.99
     },
   },
   C: {
     proMonthly: {
-      kr: 17900, // ₩17,900
-      global: 12.99, // $12.99
+      [CountryCode.KR]: 17900, // ₩17,900
+      [CountryCode.US]: 12.99, // $12.99
     },
     proYearly: {
-      kr: 69000, // ₩69,000
-      global: 69.99, // $69.99
+      [CountryCode.KR]: 69000, // ₩69,000
+      [CountryCode.US]: 69.99, // $69.99
     },
   },
 };
@@ -56,8 +58,8 @@ export const isKoreanUser = (): boolean => {
   const userLanguage = navigator.language.toLowerCase();
 
   return (
-    userLanguage.startsWith('ko') ||
-    userLanguage.includes('kr') ||
+    userLanguage.startsWith(LanguageCode.KO) ||
+    userLanguage.includes(CountryCode.KR) ||
     Intl.DateTimeFormat().resolvedOptions().timeZone === 'Asia/Seoul'
   );
 };
@@ -86,7 +88,7 @@ export const getPriceForVariation = (
   period: SubscriptionPeriod
 ): { price: number; currency: string } => {
   const isKr = isKoreanUser();
-  const price = PRICE_CONFIG[variation][period][isKr ? 'kr' : 'global'];
+  const price = PRICE_CONFIG[variation][period][isKr ? CountryCode.KR : CountryCode.US];
 
   return {
     price,

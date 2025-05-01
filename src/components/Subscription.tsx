@@ -62,6 +62,7 @@ function Subscription() {
             }}
           />
         </div>
+
         {!isLoading && (
           <div className="mt-16 grid gap-8 lg:grid-cols-3" role="list">
             {PLANS.map((plan, index) => (
@@ -175,6 +176,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, price }) => {
 
         <div className="relative">
           <button
+            type="button"
             onClick={handleSubscribeClick}
             className={cn(
               'mt-8 w-full py-3 px-6 rounded-lg font-semibold hover:bg-[#344859] duration-300 cursor-pointer',

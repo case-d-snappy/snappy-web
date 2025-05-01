@@ -1,6 +1,6 @@
 import ChevronLeft from 'assets/svgs/chevron_left.svg';
 import ChevronRight from 'assets/svgs/chevron_right.svg';
-import { IMAGE_URL } from 'constants/comoon';
+import { IMAGE_URL } from 'constants/common';
 import { useInView } from 'framer-motion';
 import { useViewEvent } from 'hooks/useViewEvent';
 import { useCallback, useRef, useState } from 'react';

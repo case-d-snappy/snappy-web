@@ -1,77 +1,50 @@
 import { useEffect, useState } from 'react';
-import { getPriceForVariation, getUserVariation, isKoreanUser, PriceVariation } from 'utils/abTesting';
-import { getDeviceId } from 'utils/deviceId';
+import { PriceVariation } from 'utils/abTesting';
+import { getRandomVariation } from 'utils/abTesting';
 
-interface UseABTestingResult {
-  deviceId: string;
-  variation: PriceVariation;
-  isKr: boolean;
+interface ABTestingResult {
   monthlyPrice: {
-    price: number;
-    currency: string;
     formatted: string;
   };
   yearlyPrice: {
-    price: number;
-    currency: string;
     formatted: string;
   };
   isLoading: boolean;
   currency: string;
+  variation: PriceVariation;
 }
 
-export const formatPrice = (price: number, currency: string): string => {
+export const formatPrice = (amount: number, currency: string): string => {
   if (currency === 'KRW') {
-    return `₩${price.toLocaleString('ko-KR')}`;
+    return `₩${amount.toLocaleString('ko-KR')}`;
   }
-
-  return `$${price.toFixed(2)}`;
+  return `$${amount.toFixed(2)}`;
 };
 
-export const useABTesting = (): UseABTestingResult => {
+export const useABTesting = (): ABTestingResult => {
   const [isLoading, setIsLoading] = useState(true);
-  const [deviceId, setDeviceId] = useState<string>('');
-  const [variation, setVariation] = useState<PriceVariation>('A');
-  const [isKr, setIsKr] = useState(false);
-  const [monthlyPrice, setMonthlyPrice] = useState({ price: 0, currency: 'USD', formatted: '' });
-  const [yearlyPrice, setYearlyPrice] = useState({ price: 0, currency: 'USD', formatted: '' });
+  const [currency, setCurrency] = useState('USD');
+  const [monthlyPrice, setMonthlyPrice] = useState({ formatted: '$0' });
+  const [yearlyPrice, setYearlyPrice] = useState({ formatted: '$0' });
+  const variation = getRandomVariation();
 
   useEffect(() => {
-    const initializeABTesting = () => {
-      const currentDeviceId = getDeviceId();
-      const userVariation = getUserVariation();
-      const koreanUser = isKoreanUser();
+    const isKorean = navigator.language.toLowerCase().startsWith('ko');
+    const userCurrency = isKorean ? 'KRW' : 'USD';
 
-      const monthly = getPriceForVariation(userVariation, 'proMonthly');
-      const yearly = getPriceForVariation(userVariation, 'proYearly');
+    const prices = isKorean ? { monthly: 11900, yearly: 45000 } : { monthly: 7.99, yearly: 49.99 };
 
-      setDeviceId(currentDeviceId);
-      setVariation(userVariation);
-      setIsKr(koreanUser);
-
-      setMonthlyPrice({
-        ...monthly,
-        formatted: formatPrice(monthly.price, monthly.currency),
-      });
-
-      setYearlyPrice({
-        ...yearly,
-        formatted: formatPrice(yearly.price, yearly.currency),
-      });
-
-      setIsLoading(false);
-    };
-
-    initializeABTesting();
+    setCurrency(userCurrency);
+    setMonthlyPrice({ formatted: formatPrice(prices.monthly, userCurrency) });
+    setYearlyPrice({ formatted: formatPrice(prices.yearly, userCurrency) });
+    setIsLoading(false);
   }, []);
 
   return {
-    deviceId,
-    variation,
-    isKr,
     monthlyPrice,
     yearlyPrice,
     isLoading,
-    currency: isKr ? 'KRW' : 'USD',
+    currency,
+    variation,
   };
 };

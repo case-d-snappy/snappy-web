@@ -2,7 +2,7 @@ import SnappyLogo from 'assets/svgs/snappy.svg';
 import { motion } from 'framer-motion';
 import { Trans, useTranslation } from 'react-i18next';
 
-import PreorderButton from './PreorderButton';
+import { PreOrderDialog } from './PreOrderDialog';
 import { Sparkles } from './Sparkles';
 
 function Intro() {
@@ -37,7 +37,7 @@ function Intro() {
   // };
 
   return (
-    <section className="w-full h-screen relative" role="banner" aria-label="Introduction">
+    <section className="w-full h-screen relative bg-[#131e28]" role="banner" aria-label="Introduction">
       <div className="relative w-full h-full max-w-screen-7xl flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -73,7 +73,7 @@ function Intro() {
           className="mt-10 z-10"
           role="complementary"
         >
-          <PreorderButton position="top" />
+          <PreOrderDialog position="top" />
         </motion.div>
 
         <div className="relative w-full" role="complementary">

@@ -1,6 +1,6 @@
 import ChevronDown from 'assets/svgs/chevron_down.svg';
 import SnappyLogo from 'assets/svgs/snappy.svg';
-import { LanguageCode } from 'constants/comoon';
+import { LanguageCode } from 'constants/common';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -26,7 +26,8 @@ function Header() {
         </div>
         <div className="relative">
           <button
-            className="flex items-center px-3 py-2 text-white bg-transparent rounded-lg hover:bg-white/10 transition-colors"
+            type="button"
+            className="flex items-center px-3 py-2 text-white bg-transparent rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           >
             {languageOptions.find(option => option.value === i18n.language)?.label}
@@ -37,7 +38,8 @@ function Header() {
               {languageOptions.map(option => (
                 <button
                   key={option.value}
-                  className="block w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 text-left"
+                  type="button"
+                  className="block w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 text-left "
                   onClick={() => handleLanguageChange(option.value)}
                 >
                   {option.label}

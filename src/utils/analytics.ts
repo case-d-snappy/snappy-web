@@ -1,3 +1,5 @@
+import { getUserVariation, PriceVariation } from './abTesting';
+
 const createRandomId = (): string => `${new Date().getTime()}_${Math.floor(Math.random() * 100000000)}`;
 
 const gTag = {
@@ -47,15 +49,27 @@ export const analyticsEvent = {
     meataPixel.setId(id);
   },
   viewSection(section: string) {
-    gTag.sendGaEvent(`view_section_${section}`);
+    gTag.sendGaEvent(`view_section_${section}`, {
+      variation: getUserVariation(),
+    });
   },
   clickPreorderButton(position: 'top' | 'bottom') {
-    gTag.sendGaEvent(`click_preorder_button`, { position });
+    gTag.sendGaEvent(`click_preorder_button`, { position, variation: getUserVariation() });
   },
-  submitPreorderForm(contactType: 'phone' | 'email', allowMarketing: boolean) {
+  submitPreorderForm({
+    contactType,
+    allowMarketing,
+    ...data
+  }: {
+    contactType: 'phone' | 'email';
+    value: string;
+    allowMarketing: boolean;
+    variation: PriceVariation;
+  }) {
     gTag.sendGaEvent(`submit_preorder_form`, {
       contact_type: contactType,
       allow_marketing: allowMarketing,
+      ...data,
     });
   },
   clickDownloadPlandy() {

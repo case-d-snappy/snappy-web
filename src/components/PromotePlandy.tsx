@@ -1,5 +1,5 @@
 import AppStore from 'assets/svgs/app_store.svg';
-import { LanguageCode } from 'constants/comoon';
+import { LanguageCode } from 'constants/common';
 import { motion, useInView } from 'framer-motion';
 import { useViewEvent } from 'hooks/useViewEvent';
 import { useRef } from 'react';
@@ -27,8 +27,8 @@ function PromotePlandy() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
         />
         <div className="flex flex-col gap-2 items-start">
-          <h2 className="text-4xl font-extrabold text-white uppercase">{t('promote-plandy.title')}</h2>
-          <p className="text-xl text-[#999999]">{t('promote-plandy.description')}</p>
+          <h2 className="text-4xl font-extrabold text-white uppercase">{t('promotePlandy.title')}</h2>
+          <p className="text-xl text-[#999999]">{t('promotePlandy.description')}</p>
           <a
             role="link"
             className="relative cursor-pointer z-10 active:scale-95 transition-all duration-300 mt-4"
