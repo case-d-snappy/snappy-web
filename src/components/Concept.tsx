@@ -1,13 +1,20 @@
 import ChevronLeft from 'assets/svgs/chevron_left.svg';
 import ChevronRight from 'assets/svgs/chevron_right.svg';
 import { IMAGE_URL } from 'constants/comoon';
-import { useCallback, useState } from 'react';
+import { useInView } from 'framer-motion';
+import { useViewEvent } from 'hooks/useViewEvent';
+import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { analyticsEvent } from 'utils/analytics';
 import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 function Concept() {
   const { t, i18n } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, {
+    once: true,
+  });
 
   const [sliderPosition, setSliderPosition] = useState(43);
   const [isDragging, setIsDragging] = useState(false);
@@ -42,8 +49,10 @@ function Concept() {
     [isDragging]
   );
 
+  useViewEvent(() => analyticsEvent.viewSection('concept'), inView);
+
   return (
-    <section className="bg-[#344859]" aria-labelledby="concept-title">
+    <section ref={containerRef} className="bg-[#344859]" aria-labelledby="concept-title">
       <div className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20">
         <div className="flex flex-col gap-6 items-center">
           <TextAnimation

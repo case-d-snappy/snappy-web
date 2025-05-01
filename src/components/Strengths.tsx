@@ -1,14 +1,24 @@
 import { IMAGE_URL } from 'constants/comoon';
 import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useViewEvent } from 'hooks/useViewEvent';
+import { useRef } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { analyticsEvent } from 'utils/analytics';
 import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
 function Strengths() {
   const { t, i18n } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, {
+    once: true,
+  });
+
+  useViewEvent(() => analyticsEvent.viewSection('strengths'), inView);
 
   return (
-    <section className="container mx-auto flex flex-col gap-40 px-5 py-30">
+    <section ref={containerRef} className="container mx-auto flex flex-col gap-40 px-5 py-30">
       <div className="flex flex-col gap-6 items-center">
         <TextAnimation
           as="h2"

@@ -9,9 +9,9 @@ import { GlobalPortal } from 'utils/GlobalPortal';
 const Concept = lazy(() => import('components/Concept'));
 const Strengths = lazy(() => import('components/Strengths'));
 const Subscription = lazy(() => import('components/Subscription'));
-const Footer = lazy(() => import('components/Footer'));
 const GetStarted = lazy(() => import('components/GetStarted'));
 const PromotePlandy = lazy(() => import('components/PromotePlandy'));
+const Footer = lazy(() => import('components/Footer'));
 
 export default function App() {
   const { i18n } = useTranslation();

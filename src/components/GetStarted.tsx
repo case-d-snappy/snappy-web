@@ -1,10 +1,20 @@
+import { useInView } from 'framer-motion';
+import { useViewEvent } from 'hooks/useViewEvent';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { analyticsEvent } from 'utils/analytics';
 import TextAnimation from 'utils/ScrollText';
 
 import PreorderButton from './PreorderButton';
 
 function GetStarted() {
   const { t } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, {
+    once: true,
+  });
+
+  useViewEvent(() => analyticsEvent.viewSection('get_started'), inView);
 
   return (
     <section className="container mx-auto flex flex-col items-center gap-10 px-5 py-30">
@@ -58,7 +68,7 @@ function GetStarted() {
           }}
         />
       </div>
-      <PreorderButton />
+      <PreorderButton position="bottom" />
     </section>
   );
 }

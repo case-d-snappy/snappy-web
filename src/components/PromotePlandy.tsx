@@ -1,10 +1,19 @@
 import AppStore from 'assets/svgs/app_store.svg';
 import { LanguageCode } from 'constants/comoon';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useViewEvent } from 'hooks/useViewEvent';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { analyticsEvent } from 'utils/analytics';
 
 function PromotePlandy() {
   const { t, i18n } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, {
+    once: true,
+  });
+
+  useViewEvent(() => analyticsEvent.viewSection('promote_plandy'), inView);
 
   return (
     <section className="bg-[#344859]">
@@ -26,6 +35,7 @@ function PromotePlandy() {
             aria-label="Download from App Store (Coming Soon)"
             href={`https://apps.apple.com/${i18n.language === LanguageCode.KO ? 'kr' : 'us'}/app/id6736831438`}
             target="_blank"
+            onClick={() => analyticsEvent.clickDownloadPlandy()}
           >
             <AppStore className="w-40 h-auto" aria-hidden="true" />
           </a>

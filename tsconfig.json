@@ -9,7 +9,7 @@
       "remotes/*": ["remotes/*"],
       "styles/*": ["styles/*"],
       "utils/*": ["utils/*"],
-      "hooks/*": ["src/hooks/*"],
+      "hooks/*": ["hooks/*"],
       "stores/*": ["stores/*"],
       "apis/*": ["apis/*"],
       "types/*": ["types/*"],

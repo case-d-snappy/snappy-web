@@ -1,8 +1,10 @@
 import StarBold from 'assets/svgs/star_bold.svg';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { formatPrice, useABTesting } from 'hooks/useABTesting';
+import { useViewEvent } from 'hooks/useViewEvent';
 import React, { MouseEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { analyticsEvent } from 'utils/analytics';
 import TextAnimation from 'utils/ScrollText';
 import { cn } from 'utils/styles';
 
@@ -15,11 +17,17 @@ const PLANS: PlanOption[] = [{ id: 'free' }, { id: 'proMonthly' }, { id: 'proYea
 
 function Subscription() {
   const { t } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, {
+    once: true,
+  });
 
   const { monthlyPrice, yearlyPrice, isLoading, currency } = useABTesting();
 
+  useViewEvent(() => analyticsEvent.viewSection('subscription'), inView);
+
   return (
-    <section aria-labelledby="subscription-title" className="bg-[#344859]">
+    <section ref={containerRef} aria-labelledby="subscription-title" className="bg-[#344859]">
       <div className="container mx-auto flex flex-col gap-10 px-5 py-30 lg:gap-20">
         <div className="flex flex-col gap-6 items-center">
           <TextAnimation

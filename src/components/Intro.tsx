@@ -73,7 +73,7 @@ function Intro() {
           className="mt-10 z-10"
           role="complementary"
         >
-          <PreorderButton />
+          <PreorderButton position="top" />
         </motion.div>
 
         <div className="relative w-full" role="complementary">
