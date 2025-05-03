@@ -41,7 +41,7 @@ function Header() {
                 <button
                   key={option.value}
                   type="button"
-                  className="block w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 text-left"
+                  className="block w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 text-left cursor-pointer"
                   onClick={() => handleLanguageChange(option.value)}
                 >
                   {option.label}

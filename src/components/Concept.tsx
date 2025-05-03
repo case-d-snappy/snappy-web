@@ -1,6 +1,6 @@
 import ChevronLeft from 'assets/svgs/chevron_left.svg';
 import ChevronRight from 'assets/svgs/chevron_right.svg';
-import { IMAGE_URL } from 'constants/common';
+import { IMAGE_URL, LanguageCode } from 'constants/common';
 import { useInView } from 'framer-motion';
 import { useViewEvent } from 'hooks/useViewEvent';
 import { useCallback, useRef, useState } from 'react';
@@ -118,7 +118,7 @@ function Concept() {
             <div className="relative w-full h-full">
               <img
                 className="w-full h-full block bg-white max-w-none object-cover"
-                src={`${IMAGE_URL}/${i18n.language}/mock_detail_screen.png`}
+                src={`${IMAGE_URL}/${i18n.language.split('-')[0] ?? LanguageCode.EN}/mock_detail_screen.png`}
                 alt="Mock detail screen"
               />
 

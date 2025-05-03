@@ -70,11 +70,25 @@
   "preorder": {
     "title": "Preorder Now!",
     "description": "Preorder now to enjoy a discounted rate of <strong>$4.99 per month</strong>.<br />Limited quantities available, so reserve quickly!",
+    "verificationCode": "Verification Code",
+    "resend": "Resend Verification Code",
+    "request": "Request Verification Code",
+    "agreePrivacy": "<strong>[Required]</strong> I agree to the collection and use of my personal information",
+    "agreeMarketing": "[Optional] I agree to receive notifications and events about the service launch",
     "term": "This preorder is subject to change at the time of official service launch, and you will be notified via text message or email when the service is launched.",
     "button": "Preorder Now!",
     "success": {
       "title": "Preorder Success!",
       "agreemarketing": "We will notify you via email when the service is launched :)"
+    },
+    "error": {
+      "title": "Preorder Failed!",
+      "description": "Please try again later.",
+      "verifyOtp": "The OTP is incorrect or expired.",
+      "invalidOtp": "The OTP length must be 6 characters.",
+      "invalidAgreePrivacy": "Please agree to the collection and use of your personal information.",
+      "unauthorized": "Please verify your email to preorder.",
+      "duplicatePreorder": "The email already preordered."
     }
   },
   "common": {

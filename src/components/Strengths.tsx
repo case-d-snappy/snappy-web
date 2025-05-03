@@ -1,4 +1,4 @@
-import { IMAGE_URL } from 'constants/common';
+import { IMAGE_URL, LanguageCode } from 'constants/common';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useViewEvent } from 'hooks/useViewEvent';
@@ -14,6 +14,7 @@ function Strengths() {
   const inView = useInView(containerRef, {
     once: true,
   });
+  const langCode = i18n.language.split('-')[0] ?? LanguageCode.EN;
 
   useViewEvent(() => analyticsEvent.viewSection('strengths'), inView);
 
@@ -76,7 +77,7 @@ function Strengths() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full xs:w-auto xs:max-h-[858px]"
-            src={`${IMAGE_URL}/${i18n.language}/mock_day_picture_screen.png`}
+            src={`${IMAGE_URL}/${langCode}/mock_day_picture_screen.png`}
             alt="Day Card"
           />
         </div>
@@ -103,7 +104,7 @@ function Strengths() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full xs:w-auto xs:max-h-[858px]"
-            src={`${IMAGE_URL}/${i18n.language}/mock_day_text_screen.png`}
+            src={`${IMAGE_URL}/${langCode}/mock_day_text_screen.png`}
             alt="Detail Card"
           />
         </div>
@@ -130,7 +131,7 @@ function Strengths() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full xs:w-auto xs:max-h-[858px]"
-            src={`${IMAGE_URL}/${i18n.language}/mock_calender_screen.png`}
+            src={`${IMAGE_URL}/${langCode}/mock_calender_screen.png`}
             alt="Calender Screen"
           />
         </div>

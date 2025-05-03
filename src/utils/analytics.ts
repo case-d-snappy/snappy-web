@@ -58,17 +58,17 @@ export const analyticsEvent = {
   },
   submitPreorderForm({
     contactType,
-    allowMarketing,
+    isAgreeMarketing,
     ...data
   }: {
     contactType: 'phone' | 'email';
     value: string;
-    allowMarketing: boolean;
+    isAgreeMarketing: boolean;
     variation: PriceVariation;
   }) {
     gTag.sendGaEvent(`submit_preorder_form`, {
       contact_type: contactType,
-      allow_marketing: allowMarketing,
+      is_agree_marketing: isAgreeMarketing,
       ...data,
     });
   },
