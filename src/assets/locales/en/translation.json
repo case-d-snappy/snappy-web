@@ -78,6 +78,7 @@
     "term": "This preorder is subject to change at the time of official service launch, and you will be notified via text message or email when the service is launched.",
     "button": "Preorder Now!",
     "success": {
+      "verifiedOtp": "Verification code verified!",
       "title": "Preorder Success!",
       "agreemarketing": "We will notify you via email when the service is launched :)"
     },

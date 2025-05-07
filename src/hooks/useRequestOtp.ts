@@ -22,10 +22,11 @@ export const useRequestOtp = () => {
 
     if (response.data?.length && response.data.length > 0) {
       toast.error(t('preorder.error.duplicatePreorder'), {
+        richColors: true,
         position: 'top-center',
       });
 
-      return { data: { user: null, session: null, messageId: null }, error: response.error };
+      throw new Error('duplicatePreorder');
     }
 
     return await supabase.auth.signInWithOtp(isKr ? { phone: `+82${phone.replace(/^0/, '')}` } : { email });

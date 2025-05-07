@@ -1,3 +1,4 @@
+import type { AuthError, PostgrestError } from '@supabase/supabase-js';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -13,15 +14,18 @@ interface UserPreorderVariables {
 export const useUserPreorder = () => {
   const { t } = useTranslation();
 
-  const userPreorder = async (data: UserPreorderVariables) => {
+  const userPreorder = async (
+    data: UserPreorderVariables
+  ): Promise<{ status: number; error: AuthError | PostgrestError | null }> => {
     const { data: userData, error: userError } = await supabase.auth.getUser();
 
     if (userError || !userData?.user) {
       toast.error(t('preorder.error.unauthorized'), {
+        richColors: true,
         position: 'top-center',
       });
 
-      return { data: null, error: userError };
+      return { status: 401, error: userError };
     }
 
     const response = await supabase.from('preorder').insert([
@@ -37,12 +41,14 @@ export const useUserPreorder = () => {
           ? t('preorder.error.duplicatePreorder', {
               position: 'top-center',
             })
-          : response.error.message
+          : response.error.message,
+        {
+          richColors: true,
+        }
       );
-      return { data: null, error: response.error };
     }
 
-    return response;
+    return { status: response.status, error: response.error };
   };
 
   return useMutation({

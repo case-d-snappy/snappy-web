@@ -48,8 +48,8 @@ export function PreOrderDialog({ position }: PreOrderDialogProps) {
       email: '',
       phone: '',
       country: isKr ? CountryCode.KR : CountryCode.US,
-      isAgreePrivacy: false,
-      isAgreeMarketing: false,
+      isAgreePrivacy: true,
+      isAgreeMarketing: true,
     },
   });
 
@@ -82,16 +82,14 @@ export function PreOrderDialog({ position }: PreOrderDialogProps) {
     requestOtp(
       { phone, email },
       {
-        onSuccess: ({ data, error }) => {
+        onSuccess: ({ error }) => {
           if (error) {
             handleError(error, 'preorder.error.title', 'preorder.error.description');
             return;
           }
 
-          if (!data.user) {
-            setIsOtpSent(true);
-            form.setValue('otp', '');
-          }
+          setIsOtpSent(true);
+          form.setValue('otp', '');
         },
       }
     );
@@ -110,6 +108,9 @@ export function PreOrderDialog({ position }: PreOrderDialogProps) {
           }
 
           if (data) {
+            toast.success(t('preorder.success.verifiedOtp'), {
+              position: 'top-center',
+            });
             setIsOtpVerified(true);
           }
         },
@@ -118,40 +119,44 @@ export function PreOrderDialog({ position }: PreOrderDialogProps) {
   };
 
   const onSubmit = ({ email = '', phone = '', isAgreeMarketing = false }: PreOrderFormData) => {
-    if (form.formState.isValid && isOtpVerified) {
-      analyticsEvent.submitPreorderForm({
-        contactType: isKr ? 'phone' : 'email',
-        isAgreeMarketing,
-        value: isKr ? phone : email,
-        variation,
-      });
-
-      userPreorder(
-        { email, phone, variation, is_agree_marketing: isAgreeMarketing },
-        {
-          onSuccess: ({ data, error }) => {
-            if (error) {
-              handleError(error, 'preorder.error.title', isAgreeMarketing ? 'preorder.success.agreemarketing' : '');
-              return;
-            }
-
-            if (data) {
-              toast.success(t('preorder.success.title'), {
-                position: 'top-center',
-                description: isAgreeMarketing ? t('preorder.success.agreemarketing') : '',
-              });
-              setOpenDialog(false);
-              form.reset();
-            }
-          },
-        }
-      );
+    if (!form.formState.isValid || !isOtpVerified || isPending) {
+      return;
     }
+
+    analyticsEvent.submitPreorderForm({
+      contactType: isKr ? 'phone' : 'email',
+      isAgreeMarketing,
+      value: isKr ? phone : email,
+      variation,
+    });
+
+    userPreorder(
+      { email, phone, variation, is_agree_marketing: isAgreeMarketing },
+      {
+        onSuccess: ({ status, error }) => {
+          if (error) {
+            handleError(error, 'preorder.error.title', isAgreeMarketing ? 'preorder.success.agreemarketing' : '');
+            return;
+          }
+
+          if (status === 201) {
+            toast.success(t('preorder.success.title'), {
+              richColors: true,
+              position: 'top-center',
+              description: isAgreeMarketing ? t('preorder.success.agreemarketing') : '',
+            });
+            setOpenDialog(false);
+            form.reset();
+          }
+        },
+      }
+    );
   };
 
   const handleError = (error: AuthError | PostgrestError | null, titleKey: string, descriptionKey: string) => {
     console.error(error);
     toast.error(t(titleKey), {
+      richColors: true,
       position: 'top-center',
       description:
         error?.code === 'over_sms_send_rate_limit' || error?.code === 'over_email_send_rate_limit'
@@ -183,7 +188,7 @@ export function PreOrderDialog({ position }: PreOrderDialogProps) {
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+          <form id="preorder-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
             <ContactInput
               isPending={isPending}
               form={form}
@@ -208,6 +213,7 @@ export function PreOrderDialog({ position }: PreOrderDialogProps) {
             <AgreementFields form={form} />
             <Button
               type={isOtpVerified ? 'submit' : 'button'}
+              form="preorder-form"
               disabled={!form.formState.isValid || !isOtpVerified || isPending}
               className="w-full bg-[#FF2768] hover:bg-[#FF2768]/90 text-white font-bold text-lg h-13 cursor-pointer mt-4"
             >
